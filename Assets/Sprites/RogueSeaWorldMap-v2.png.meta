@@ -1,0 +1,1858 @@
+fileFormatVersion: 2
+guid: 936e9ec9d5fc8ac45b974f420ea74f81
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 222150024137600114
+    second: RogueSeaWorldMap-v2_0
+  - first:
+      213: -4948234676957902670
+    second: RogueSeaWorldMap-v2_1
+  - first:
+      213: -2632487658413831208
+    second: RogueSeaWorldMap-v2_2
+  - first:
+      213: -19128456422053300
+    second: RogueSeaWorldMap-v2_3
+  - first:
+      213: 4651155346827699412
+    second: RogueSeaWorldMap-v2_4
+  - first:
+      213: -3836265104968579624
+    second: RogueSeaWorldMap-v2_5
+  - first:
+      213: 6085431558742812978
+    second: RogueSeaWorldMap-v2_6
+  - first:
+      213: -8780662635912215236
+    second: RogueSeaWorldMap-v2_7
+  - first:
+      213: 339331162491446532
+    second: RogueSeaWorldMap-v2_8
+  - first:
+      213: 9021274300380532510
+    second: RogueSeaWorldMap-v2_9
+  - first:
+      213: -5260158355804365710
+    second: RogueSeaWorldMap-v2_10
+  - first:
+      213: -1907430878378301383
+    second: RogueSeaWorldMap-v2_11
+  - first:
+      213: 4946235719232493932
+    second: RogueSeaWorldMap-v2_12
+  - first:
+      213: 1301967365673573396
+    second: RogueSeaWorldMap-v2_13
+  - first:
+      213: 2709164096523605155
+    second: RogueSeaWorldMap-v2_14
+  - first:
+      213: 6364088069458933156
+    second: RogueSeaWorldMap-v2_15
+  - first:
+      213: -4059391019045507575
+    second: RogueSeaWorldMap-v2_16
+  - first:
+      213: -135981223864424985
+    second: RogueSeaWorldMap-v2_17
+  - first:
+      213: -5021161632355811061
+    second: RogueSeaWorldMap-v2_18
+  - first:
+      213: 7314599322629681282
+    second: RogueSeaWorldMap-v2_19
+  - first:
+      213: 7010378860278830098
+    second: RogueSeaWorldMap-v2_20
+  - first:
+      213: -2220278436714088141
+    second: RogueSeaWorldMap-v2_21
+  - first:
+      213: 8872455795189551129
+    second: RogueSeaWorldMap-v2_22
+  - first:
+      213: -2801575487564635776
+    second: RogueSeaWorldMap-v2_23
+  - first:
+      213: -6994374444912990292
+    second: RogueSeaWorldMap-v2_24
+  - first:
+      213: -183878291517893620
+    second: RogueSeaWorldMap-v2_25
+  - first:
+      213: -5018362209116343754
+    second: RogueSeaWorldMap-v2_26
+  - first:
+      213: -6587319099835707782
+    second: RogueSeaWorldMap-v2_27
+  - first:
+      213: -6362868907216184234
+    second: RogueSeaWorldMap-v2_28
+  - first:
+      213: 3273961664968764108
+    second: RogueSeaWorldMap-v2_29
+  - first:
+      213: -1307692174031647982
+    second: RogueSeaWorldMap-v2_30
+  - first:
+      213: 6235990832649550467
+    second: RogueSeaWorldMap-v2_31
+  - first:
+      213: 1076912411254102785
+    second: RogueSeaWorldMap-v2_32
+  - first:
+      213: -1053702813567667544
+    second: RogueSeaWorldMap-v2_33
+  - first:
+      213: 6452864655027689335
+    second: RogueSeaWorldMap-v2_34
+  - first:
+      213: -1791328841991370719
+    second: RogueSeaWorldMap-v2_35
+  - first:
+      213: -3916867293958133864
+    second: RogueSeaWorldMap-v2_36
+  - first:
+      213: -4058640855124267288
+    second: RogueSeaWorldMap-v2_37
+  - first:
+      213: -3682246348013725669
+    second: RogueSeaWorldMap-v2_38
+  - first:
+      213: 5600653576073579033
+    second: RogueSeaWorldMap-v2_39
+  - first:
+      213: 8596921151697638867
+    second: RogueSeaWorldMap-v2_40
+  - first:
+      213: -6768062785725359292
+    second: RogueSeaWorldMap-v2_41
+  - first:
+      213: 6214742185604116829
+    second: RogueSeaWorldMap-v2_42
+  - first:
+      213: 7113945069768881099
+    second: RogueSeaWorldMap-v2_43
+  - first:
+      213: -37719110716113770
+    second: RogueSeaWorldMap-v2_44
+  - first:
+      213: 2743800420234366806
+    second: RogueSeaWorldMap-v2_45
+  - first:
+      213: 7485329039137784380
+    second: RogueSeaWorldMap-v2_46
+  - first:
+      213: 2048425205040786546
+    second: RogueSeaWorldMap-v2_47
+  - first:
+      213: -9164053180768752235
+    second: RogueSeaWorldMap-v2_48
+  - first:
+      213: -8245601933615708637
+    second: RogueSeaWorldMap-v2_49
+  - first:
+      213: -7790432659519406266
+    second: RogueSeaWorldMap-v2_50
+  - first:
+      213: -2165895202959390692
+    second: RogueSeaWorldMap-v2_51
+  - first:
+      213: 3661761456728290381
+    second: RogueSeaWorldMap-v2_52
+  - first:
+      213: 1484239052173523032
+    second: RogueSeaWorldMap-v2_53
+  - first:
+      213: 6184944641816506585
+    second: RogueSeaWorldMap-v2_54
+  - first:
+      213: 5582633572979119397
+    second: RogueSeaWorldMap-v2_55
+  - first:
+      213: 3438198364777986248
+    second: RogueSeaWorldMap-v2_56
+  - first:
+      213: 3013416100511737697
+    second: RogueSeaWorldMap-v2_57
+  - first:
+      213: 6980528302359475892
+    second: RogueSeaWorldMap-v2_58
+  - first:
+      213: 683048960989748748
+    second: RogueSeaWorldMap-v2_59
+  - first:
+      213: 9099761026445570687
+    second: RogueSeaWorldMap-v2_60
+  - first:
+      213: -4332395169250087406
+    second: RogueSeaWorldMap-v2_61
+  - first:
+      213: 1673785896582227710
+    second: RogueSeaWorldMap-v2_62
+  - first:
+      213: 3353597739099340760
+    second: RogueSeaWorldMap-v2_63
+  - first:
+      213: -2859085549619688427
+    second: RogueSeaWorldMap-v2_64
+  - first:
+      213: -8690419402307414579
+    second: RogueSeaWorldMap-v2_65
+  - first:
+      213: 1622331555965138571
+    second: RogueSeaWorldMap-v2_66
+  - first:
+      213: -8500410602957683778
+    second: RogueSeaWorldMap-v2_67
+  - first:
+      213: -1022634891221468935
+    second: RogueSeaWorldMap-v2_68
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 227
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b2832bbbba79eb4382b24ebc84c7042
+      internalID: 222150024137600114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 30, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 937eaa5bde40c1d47bed9db83b86f656
+      internalID: -4948234676957902670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba5276d98a343e94ebc5f519c0da9c57
+      internalID: -2632487658413831208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_3
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 206
+        width: 41
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bafa3cd73b64b4488da0400f94e4488
+      internalID: -19128456422053300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_4
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 248
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96e681d5f691550488d308dd3f4c9107
+      internalID: 4651155346827699412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_5
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 196
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa205b1a02d69254582b33f375f517dc
+      internalID: -3836265104968579624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_6
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 206
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27ba393ac014cbd4b94093c5eb0550b6
+      internalID: 6085431558742812978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 200
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 800359a65e702ba43ba15c006e3bd378
+      internalID: -8780662635912215236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_8
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 197
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a57e90b74d8432142bf2dc858979803d
+      internalID: 339331162491446532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_9
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 200
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc1b7aa598e4e448b1efa765d816b66
+      internalID: 9021274300380532510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_10
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 167
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99aedf251532e6a42b444bf74bd84134
+      internalID: -5260158355804365710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_11
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 162
+        width: 13
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca4884840450f0d4ea2f04dc6c651f4d
+      internalID: -1907430878378301383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_12
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 165
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 5}
+        - {x: -8, y: -5}
+        - {x: 7, y: -5}
+        - {x: 8, y: -4}
+        - {x: 8, y: 4}
+        - {x: 7, y: 5}
+      physicsShape:
+      - - {x: -8, y: 5}
+        - {x: -8, y: -5}
+        - {x: 7, y: -5}
+        - {x: 8, y: -4}
+        - {x: 8, y: 4}
+        - {x: 7, y: 5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 189c499db4a5b814185e74d8337f130d
+      internalID: 4946235719232493932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_13
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 161
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 12}
+        - {x: -12, y: 4}
+        - {x: -12, y: -12}
+        - {x: -6, y: -12}
+        - {x: 12, y: 6}
+        - {x: 12, y: 12}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f7e4278d20c4ae45a33780d91aa22b1
+      internalID: 1301967365673573396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_14
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 174
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 695bbab30aeb793448082dc9e5a9df6a
+      internalID: 2709164096523605155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_15
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 163
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 341cc1126f3639c48a9e477b19afbe9a
+      internalID: 6364088069458933156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_16
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 130
+        width: 58
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -13, y: -26}
+        - {x: -12, y: -28}
+        - {x: -4, y: -28}
+        - {x: -5, y: -25}
+        - {x: -8, y: -24}
+        - {x: -11, y: -24}
+      - - {x: -8, y: 28}
+        - {x: -29, y: 1}
+        - {x: -29, y: -22}
+        - {x: -12, y: -28}
+        - {x: 29, y: -28}
+        - {x: 29, y: 16}
+        - {x: 13, y: 28}
+      - - {x: 17, y: 28}
+        - {x: 14, y: 26}
+        - {x: 14, y: 24}
+        - {x: 16, y: 19}
+        - {x: 20, y: 19}
+        - {x: 23, y: 23}
+        - {x: 23, y: 26}
+        - {x: 20, y: 28}
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab53e8f6a3318d944b023ce69e787ae6
+      internalID: -4059391019045507575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_17
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 160
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c51dd893bffd6b544b7585ca267119a6
+      internalID: -135981223864424985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 133
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8b9443d6c99810408b39e69f3a57329
+      internalID: -5021161632355811061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_19
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 141
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 722a1d5a73e54344ca20e0d25e29b921
+      internalID: 7314599322629681282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_20
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 128
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -15, y: 16}
+        - {x: -15, y: -16}
+        - {x: 14, y: -16}
+        - {x: 15, y: -14}
+        - {x: 15, y: 13}
+        - {x: 12, y: 16}
+      physicsShape:
+      - - {x: -15, y: 16}
+        - {x: -15, y: -16}
+        - {x: 14, y: -16}
+        - {x: 15, y: -14}
+        - {x: 15, y: 13}
+        - {x: 12, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e21ab69100b0ca4c8ad6954be4b8848
+      internalID: 7010378860278830098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_21
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 135
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5486fe47c756785469497bee5ae1f193
+      internalID: -2220278436714088141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_22
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 147
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79918073140aee144b76c04065e0c040
+      internalID: 8872455795189551129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_23
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 131
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc3dc959421eeca4eb0dd3dce3211459
+      internalID: -2801575487564635776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_24
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 131
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01597d5f70714e04897d716ff6c130d6
+      internalID: -6994374444912990292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_25
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 110
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35ae49d9e87b9b840ab848f92c3e1197
+      internalID: -183878291517893620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_26
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 73
+        width: 24
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003098d98c39d1b46ae61eeea6c32c49
+      internalID: -5018362209116343754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_27
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 97
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfbb93f945d923f4a8a687c9fa3e3b0c
+      internalID: -6587319099835707782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_28
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 100
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dca295a593c13d44b79a09ee00b8978
+      internalID: -6362868907216184234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_29
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 109
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21d6019a313d4da4ead06c28ca3c1b57
+      internalID: 3273961664968764108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_30
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 96
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43459097d11663e4399e610101d154a4
+      internalID: -1307692174031647982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_31
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 116
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7813d52cb88848844acff9e64fbcbd46
+      internalID: 6235990832649550467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_32
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 100
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff66f9a3dcd6da44b333d6ad14e4398
+      internalID: 1076912411254102785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_33
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 105
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f2a22232c6186e4789a8b4474c4d9d2
+      internalID: -1053702813567667544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_34
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 98
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43f000752dc1d48488f64fc286beb1fb
+      internalID: 6452864655027689335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_35
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 101
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cfc8312b9a6b694f867867438eeaf33
+      internalID: -1791328841991370719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_36
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 86
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f140117c17ec04d8837c04a248bef1
+      internalID: -3916867293958133864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_37
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 70
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7590d25219e11f04689da146fdca8b4e
+      internalID: -4058640855124267288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_38
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 87
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e225c2338aa7e844288fc71aac13a510
+      internalID: -3682246348013725669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_39
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 91
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89181a800ea65994eab440932faee3ec
+      internalID: 5600653576073579033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_40
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 67
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83748fa6ed4baf34481cd901481214eb
+      internalID: 8596921151697638867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_41
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 87
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99fe4bc0d1590584bb85ec38e450f183
+      internalID: -6768062785725359292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_42
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 68
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b8148435661e9a47bef220ef525f436
+      internalID: 6214742185604116829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_43
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 78
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc175a15339cb6e4f854790f2a67dfa8
+      internalID: 7113945069768881099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_44
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 68
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b6ff238749361149abfe44a9167245d
+      internalID: -37719110716113770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_45
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 71
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c92a37e7f5cc22c4086ef4d282eba0ec
+      internalID: 2743800420234366806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_46
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 78
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e830d5a48acaf8d44bfa6e796c75e6e2
+      internalID: 7485329039137784380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_47
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 78
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f04860ed864157b469da3433ed34e2b0
+      internalID: 2048425205040786546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_48
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 64
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 164b64fed26cac64ab466901d3624705
+      internalID: -9164053180768752235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_49
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 64
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 775e28354b9a0504dbba902ffb2ded79
+      internalID: -8245601933615708637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_50
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 66
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c3fbef79b6dc064da495ba7c641ccae
+      internalID: -7790432659519406266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_51
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 47
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b019129e183700e469556f3adfd3a150
+      internalID: -2165895202959390692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_52
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 10
+        width: 53
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0865e0b1cad28740b80fb7ed7b89874
+      internalID: 3661761456728290381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_53
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 58
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05330efff3a29024fbd0393feb4a8c80
+      internalID: 1484239052173523032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_54
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 50
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26f1a42543cd93f49b515caef956c195
+      internalID: 6184944641816506585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_55
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 54
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68e6e8b3f947044f8ee05bc76929d32
+      internalID: 5582633572979119397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_56
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 39
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f33e6b36d52f9a349ba9930c4329d786
+      internalID: 3438198364777986248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_57
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 54
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89eb780ded38c3b44ba57234dd1dd818
+      internalID: 3013416100511737697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_58
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 9
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd0e0bec76ea3254792f27d8b33d52f9
+      internalID: 6980528302359475892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_59
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 10
+        width: 50
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9af45f31ad557934bba76abefc91e2e5
+      internalID: 683048960989748748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_60
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 41
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170dd47f144f5ad4695bf2ecddd74704
+      internalID: 9099761026445570687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_61
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 32
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a673485dead6b004ab87be5c82b75ad3
+      internalID: -4332395169250087406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_62
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 33
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e0e192d1e8226b49956917a50927abe
+      internalID: 1673785896582227710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_63
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd5eacf03b28f6243baa6eef6bf20fe0
+      internalID: 3353597739099340760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_64
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d797f41e4187c146970e4edbd4995ca
+      internalID: -2859085549619688427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_65
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf4f240ae525d064eac90e89a27551a7
+      internalID: -8690419402307414579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_66
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 196
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36bbce6de9ff2d94191af926b94a05fa
+      internalID: 1622331555965138571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_67
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 192
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e87052e00f8565419a1c863f3cd2771
+      internalID: -8500410602957683778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueSeaWorldMap-v2_68
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 195
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 158da5768a1a2394fa81f4b24b5705cd
+      internalID: -1022634891221468935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
