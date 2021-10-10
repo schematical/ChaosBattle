@@ -19,14 +19,21 @@ namespace services
 
         private void OnCollisionEnterNPCEntity(NPCEntity npcEntity)
         {
+            if (IsCurrentlyHeld())
+            {
+                return; // We are alreadying being held
+            }
             if (npcEntity.primaryHeldItem)
             {
                 return; // They are already holding something.
             }
             npcEntity.SetPrimaryHeldItem(this);
-            // GetComponent<Rigidbody2D>().simulated = false;
         }
 
+        public bool IsCurrentlyHeld()
+        {
+            return !!heldByNPCEntity;
+        }
         private void OnCollisionExit2D(Collision2D other)
         {
    
@@ -37,6 +44,11 @@ namespace services
         public void SetHoldingEntity(NPCEntity npcEntity)
         {
             heldByNPCEntity = npcEntity;
+        }
+
+        public NPCEntity GetHoldingEntity()
+        {
+            return heldByNPCEntity;
         }
     }
 }

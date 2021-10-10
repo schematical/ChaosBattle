@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using services;
+using services.actions;
 using UnityEngine;
 
 public class NPCEntity : ChaosEntity, iNavagatable
@@ -15,9 +16,13 @@ public class NPCEntity : ChaosEntity, iNavagatable
     public bool isAlive = true;
     public Color bodyColor = Color.green;
     public Joint2D handJoint;
+    private BrainBase brain;
+    private BaseAction currAction = null;
     NPCEntity(): base()
     {
-        InitStat(ChaosEntityStatType.Attack, 5);
+            
+        InitStat(ChaosEntityStatType.Health, 100);
+        brain = new BasicBrainV1(this);
     }
     // Start is called before the first frame update
     void Start()
@@ -36,43 +41,50 @@ public class NPCEntity : ChaosEntity, iNavagatable
         GetComponents<Joint2D>()[0].connectedBody = headRigidbody2D;
         handJoint = GetComponents<Joint2D>()[1];
         handJoint.enabled = false;
-        PathFinder.navigateTo(GameManager.instance.level.swordObject.gameObject);
-        InitStat(ChaosEntityStatType.Health, 100);
+
     }
 
-    public Rigidbody2D GetRigidbody2D()
-    {
-        return _rigidbody2D;
-    }
+  
     // Update is called once per frame
     void Update()
     {
-          PathFinder.tickNavigate();
-          /*if (primaryHeldItem)
-          {
-              primaryHeldItem.transform.localPosition = new Vector3(
-                  this.transform.localPosition.x,
-                  this.transform.localPosition.y,
-               this.transform.localPosition.z - 1
-              );
-          }*/
+        brain.tick();
+        currAction?.tick();
+        PathFinder.tickNavigate();
+        /*if (primaryHeldItem)
+        {
+            primaryHeldItem.transform.localPosition = new Vector3(
+                this.transform.localPosition.x,
+                this.transform.localPosition.y,
+             this.transform.localPosition.z - 1
+            );
+        }*/
 
-          if (
-              isAlive &&
-              GetStatVal(ChaosEntityStatType.Health) <= 0)
-          {
-              MarkDead();
-          }
+        if (
+            isAlive &&
+            GetStatVal(ChaosEntityStatType.Health) <= 0)
+        {
+            MarkDead();
+        }
 
-          float redPct = 1 - GetStatVal(ChaosEntityStatType.Health) / 100;
-          GetComponent<SpriteRenderer>().color = new Color(
-              bodyColor.r + redPct,
-              bodyColor.g * (1 - redPct),
-              bodyColor.b * (1 - redPct)
-          );
-          // SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.Health) - 1);
+        float redPct = 1 - GetStatVal(ChaosEntityStatType.Health) / 100;
+        GetComponent<SpriteRenderer>().color = new Color(
+            bodyColor.r + redPct,
+            bodyColor.g * (1 - redPct),
+            bodyColor.b * (1 - redPct)
+        );
+        // SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.Health) - 1);
     }
 
+    public BaseAction GetCurrentAction()
+    {
+        return currAction;
+    }
+
+    public void SetCurrentAction(BaseAction baseAction)
+    {
+        currAction = baseAction;
+    }
     private void MarkDead()
     {
         if (!isAlive)
@@ -109,6 +121,11 @@ public class NPCEntity : ChaosEntity, iNavagatable
             // NPCEntityHead.GetComponent<SpriteRenderer>().color = Color.blue;
             bodyColor = Color.blue;
         }
+    }
+
+    public ChaosTeam GetTeam()
+    {
+        return chaosTeam;
     }
 
     public void SetPrimaryHeldItem(ChoasItem choasItem)

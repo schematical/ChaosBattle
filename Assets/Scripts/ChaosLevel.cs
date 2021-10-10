@@ -20,7 +20,7 @@ public class ChaosLevel
         swordObject.transform.localPosition = new Vector3(
             MapDimensions.x / 2, 
             MapDimensions.y / 2,
-            0
+            -2
         );
         entities.Add(swordObject);
         for (int x = 0; x < MapDimensions.x; x++)

@@ -7,5 +7,4 @@ public interface iNavagatable
     Transform transform { get; }
     float speed { get; }
     T GetComponent<T>();
-    Rigidbody2D GetRigidbody2D();
 }

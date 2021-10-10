@@ -1,4 +1,5 @@
 ﻿
+using System;
 using services;
 using services.actions;
 using UnityEngine;
@@ -11,33 +12,28 @@ public enum ActionPhase
     Cooldown,
     Finished
 }
-public class UsePrimaryItemAction: BaseAction
+public class UsePrimaryItemAction: NavigateToAction
 {
-    private ChaosEntity target;
-    private ActionPhase _phase = ActionPhase.Windup;
+
+    private ActionPhase _phase = ActionPhase.Navigating;
     private float windupRemainingDuration;
     private float cooldownRemainingDuration;
     public UsePrimaryItemAction(NPCEntity npcEntity) : base(npcEntity)
     {
         windupRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
         cooldownRemainingDuration= actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
+        SetRangeGoal(actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.MeleeRange));
     }
 
-    public void SetTarget(ChaosEntity target)
-    {
-        this.target = target;
-    }
 
     public override void tick()
     {
+        Debug.Log("Ticking UsePrimaryItemAction: " + _phase.ToString());
         switch (_phase)
         {
             case(ActionPhase.Navigating):
-                float dist = (target.transform.position - actingNPCEntity.transform.position).sqrMagnitude;
-                if (dist < actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.MeleeRange))
-                {
-                    TransitionPhase(ActionPhase.Windup);
-                }
+                Debug.Log("Navigating");
+                base.tick();
                 break;
             case(ActionPhase.Windup): 
                 windupRemainingDuration -= Time.deltaTime;
@@ -48,7 +44,7 @@ public class UsePrimaryItemAction: BaseAction
                 break;
             case(ActionPhase.Cooldown): 
                 cooldownRemainingDuration -= Time.deltaTime;
-                if (windupRemainingDuration <= 0)
+                if (cooldownRemainingDuration <= 0)
                 {
                     TransitionPhase(ActionPhase.Finished);
                 }
@@ -58,6 +54,11 @@ public class UsePrimaryItemAction: BaseAction
      
     }
 
+    public override void EndNavigation()
+    {
+        Debug.Log("Ending Nav");
+        TransitionPhase(ActionPhase.Windup);
+    }
     private void TransitionPhase(ActionPhase actionPhase)
     {
         _phase = actionPhase;
@@ -69,7 +70,8 @@ public class UsePrimaryItemAction: BaseAction
 
     private void fire()
     {
-        
+        Debug.Log("Firing");
+        TransitionPhase(ActionPhase.Cooldown);
     }
     public override bool isFinished()
     {
