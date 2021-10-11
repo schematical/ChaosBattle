@@ -28,15 +28,14 @@ public class UsePrimaryItemAction: NavigateToAction
 
     public override void tick()
     {
-        Debug.Log("Ticking UsePrimaryItemAction: " + _phase.ToString());
         switch (_phase)
         {
             case(ActionPhase.Navigating):
-                Debug.Log("Navigating");
                 base.tick();
                 break;
             case(ActionPhase.Windup): 
                 windupRemainingDuration -= Time.deltaTime;
+                actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
                 if (windupRemainingDuration <= 0)
                 {
                     TransitionPhase(ActionPhase.Acting);
@@ -44,6 +43,7 @@ public class UsePrimaryItemAction: NavigateToAction
                 break;
             case(ActionPhase.Cooldown): 
                 cooldownRemainingDuration -= Time.deltaTime;
+                actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
                 if (cooldownRemainingDuration <= 0)
                 {
                     TransitionPhase(ActionPhase.Finished);
@@ -56,7 +56,7 @@ public class UsePrimaryItemAction: NavigateToAction
 
     public override void EndNavigation()
     {
-        Debug.Log("Ending Nav");
+    
         TransitionPhase(ActionPhase.Windup);
     }
     private void TransitionPhase(ActionPhase actionPhase)
@@ -70,8 +70,14 @@ public class UsePrimaryItemAction: NavigateToAction
 
     private void fire()
     {
-        Debug.Log("Firing");
+        actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
         TransitionPhase(ActionPhase.Cooldown);
+        if (Target is NPCEntity)
+        {
+            Target.GetComponent<Rigidbody2D>().velocity = (Target.transform.position - actingNPCEntity.transform.position) * 10;
+            ((NPCEntity)Target).TakeDamage((int)actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Attack));
+        }
+     
     }
     public override bool isFinished()
     {

@@ -15,9 +15,10 @@ public class NPCEntity : ChaosEntity, iNavagatable
     public ChoasItem primaryHeldItem;
     public bool isAlive = true;
     public Color bodyColor = Color.green;
-    public Joint2D handJoint;
+    public HingeJoint2D handJoint;
     private BrainBase brain;
     private BaseAction currAction = null;
+    private ParticleSystem _particalSystem;
     NPCEntity(): base()
     {
             
@@ -30,6 +31,8 @@ public class NPCEntity : ChaosEntity, iNavagatable
         
         PathFinder = new PathFinder(this,  null);
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _particalSystem = GetComponent<ParticleSystem>();
+        
         NPCEntityHead = GameManager.instance.PrefabManager.Get("NPCEntityHead");
         NPCEntityHead.transform.localPosition = new Vector3(
             transform.localPosition.x, 
@@ -39,7 +42,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
         Rigidbody2D headRigidbody2D = NPCEntityHead.GetComponent<Rigidbody2D>();
        
         GetComponents<Joint2D>()[0].connectedBody = headRigidbody2D;
-        handJoint = GetComponents<Joint2D>()[1];
+        handJoint = GetComponents<HingeJoint2D>()[1];
         handJoint.enabled = false;
 
     }
@@ -73,6 +76,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
             bodyColor.g * (1 - redPct),
             bodyColor.b * (1 - redPct)
         );
+        
         // SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.Health) - 1);
     }
 
@@ -94,6 +98,14 @@ public class NPCEntity : ChaosEntity, iNavagatable
         isAlive = false;
         GetComponents<Joint2D>()[0].connectedBody = null;
         
+    }
+
+    public void TakeDamage(int hitPoints)
+    {
+        _particalSystem.Emit(hitPoints);
+        int health = (int)GetStatVal(ChaosEntityStatType.Health);
+        SetStatVal(ChaosEntityStatType.Health, health - hitPoints);
+        Debug.Log("Health: " + health);
     }
     
 

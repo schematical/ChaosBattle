@@ -322,9 +322,9 @@ namespace services
             Vector2 directionTo = (new Vector2(nextMove.x + OFFSET, nextMove.y + OFFSET) - (Vector2)searcher.transform.position).normalized ;
             float speed = searcher.speed;
            
-            rigidbody2D.velocity = directionTo* speed;
+            rigidbody2D.velocity = (rigidbody2D.velocity + (directionTo* speed)) / 2;
 
-            rigidbody2D.rotation = ChaosUtil.AngleBetweenVector2(Vector2.zero, directionTo) + 90;
+            // rigidbody2D.rotation = ChaosUtil.AngleBetweenVector2(Vector2.zero, directionTo) + 90;
         }
 
         public bool navigateTo(GameObject target)

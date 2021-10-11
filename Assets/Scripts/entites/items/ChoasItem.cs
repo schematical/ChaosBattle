@@ -50,5 +50,10 @@ namespace services
         {
             return heldByNPCEntity;
         }
+
+        public virtual void ApplyActionAnimation(ActionPhase actionPhase)
+        {
+            
+        }
     }
 }

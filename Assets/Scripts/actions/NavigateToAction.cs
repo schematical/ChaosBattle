@@ -13,6 +13,8 @@ public class NavigateToAction: BaseAction
 
     }
 
+    public ChaosEntity Target => target;
+
     public void SetTarget(ChaosEntity target)
     {
         this.target = target;
@@ -27,10 +29,7 @@ public class NavigateToAction: BaseAction
     {
 
             float dist = (target.transform.position - actingNPCEntity.transform.position).sqrMagnitude;
-            if (actingNPCEntity.primaryHeldItem)
-            {
-                Debug.Log(dist + " < " + rangeGoal);
-            }
+           
             if (dist < rangeGoal)
             {
                 EndNavigation();
