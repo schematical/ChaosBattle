@@ -34,5 +34,10 @@ namespace services
 
             stats[type].SetVal(val);
         }
+
+        public virtual void CleanUp()
+        {
+            
+        }
     }
 }

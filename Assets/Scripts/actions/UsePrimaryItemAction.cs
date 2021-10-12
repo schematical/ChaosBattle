@@ -36,19 +36,18 @@ public class UsePrimaryItemAction : NavigateToAction
         }
 
         
-        else if (_phase.Equals(UsePrimaryItemActionPhase.Windup))
+        if (_phase.Equals(UsePrimaryItemActionPhase.Windup))
         {
-            Debug.Log("Windup: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
+            // Debug.Log("Windup: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
             windupRemainingDuration -= Time.deltaTime;
             actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
             if (windupRemainingDuration <= 0)
             {
                 TransitionPhase(UsePrimaryItemActionPhase.Acting);
             }
-        }
-        else if (_phase.Equals(UsePrimaryItemActionPhase.Cooldown))
+        }  else if (_phase.Equals(UsePrimaryItemActionPhase.Cooldown))
         {
-            Debug.Log("Cooldown: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
+            // Debug.Log("Cooldown: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
             cooldownRemainingDuration -= Time.deltaTime;
             actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
             if (cooldownRemainingDuration <= 0)

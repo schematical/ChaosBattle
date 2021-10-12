@@ -18,35 +18,44 @@ public class NPCEntity : ChaosEntity, iNavagatable
     private BrainBase brain;
     private BaseAction currAction = null;
     private ParticleSystem _particalSystem;
-    NPCEntity(): base()
+
+    NPCEntity() : base()
     {
-            
         InitStat(ChaosEntityStatType.Health, 100);
-        brain = new BasicBrainV1(this);
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        
-        PathFinder = new PathFinder(this,  null);
+   
+    
+        PathFinder = new PathFinder(this, null);
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _particalSystem = GetComponent<ParticleSystem>();
         
+   
+    }
+
+    public void Init()
+    {
+        SetStatVal(ChaosEntityStatType.Health, 100);
+        isAlive = true;
+        brain = new BasicBrainV1(this);
         NPCEntityHead = GameManager.instance.PrefabManager.Get("NPCEntityHead");
         NPCEntityHead.transform.localPosition = new Vector3(
-            transform.localPosition.x, 
+            transform.localPosition.x,
             transform.localPosition.y + .5f,
             0
         );
-        Rigidbody2D headRigidbody2D = NPCEntityHead.GetComponent<Rigidbody2D>();
-       
-        GetComponents<Joint2D>()[0].connectedBody = headRigidbody2D;
         handJoint = GetComponents<HingeJoint2D>()[1];
         handJoint.enabled = false;
-
+        
+        Rigidbody2D headRigidbody2D = NPCEntityHead.GetComponent<Rigidbody2D>();
+        GetComponents<Joint2D>()[0].connectedBody = headRigidbody2D;
+        primaryHeldItem = null;
+        currAction = null;
     }
 
-  
     // Update is called once per frame
     void Update()
     {
@@ -75,7 +84,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
             bodyColor.g * (1 - redPct),
             bodyColor.b * (1 - redPct)
         );
-        
+
         // SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.Health) - 1);
     }
 
@@ -88,37 +97,35 @@ public class NPCEntity : ChaosEntity, iNavagatable
     {
         currAction = baseAction;
     }
+
     private void MarkDead()
     {
         if (!isAlive)
         {
             throw new Exception("Your already dead");
         }
+
         isAlive = false;
         GetComponents<Joint2D>()[0].connectedBody = null;
-        
     }
 
     public void TakeDamage(int hitPoints)
     {
         _particalSystem.Emit(hitPoints);
-        int health = (int)GetStatVal(ChaosEntityStatType.Health);
+        int health = (int) GetStatVal(ChaosEntityStatType.Health);
         SetStatVal(ChaosEntityStatType.Health, health - hitPoints);
         Debug.Log("Health: " + health);
     }
-    
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        
-        
     }
+
     private void OnCollisionExit2D(Collision2D other)
     {
-   
-        
-      
     }
+
     public float speed
     {
         get { return 1f; }
@@ -144,7 +151,14 @@ public class NPCEntity : ChaosEntity, iNavagatable
         primaryHeldItem = choasItem;
         choasItem.SetHoldingEntity(this);
         handJoint.connectedBody = primaryHeldItem.GetComponent<Rigidbody2D>();
-        
+
         handJoint.enabled = true;
+    }
+
+    public override void CleanUp()
+    {
+        base.CleanUp();
+        // Destroy(NPCEntityHead);
+        NPCEntityHead.SetActive(false);
     }
 }

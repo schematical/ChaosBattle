@@ -5,6 +5,7 @@ using services.Seed;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 public class ChaosLevel
@@ -26,6 +27,7 @@ public class ChaosLevel
             MapDimensions.y / 2,
             -2
         );
+        swordObject.Init();
         entities.Add(swordObject);
         for (int x = 0 - Border; x < MapDimensions.x + Border; x++)
         {
@@ -79,8 +81,9 @@ public class ChaosLevel
 
                         NPCEntity npcEntity = GameManager.instance.PrefabManager.Get("NPCEntity")
                             .GetComponent<NPCEntity>();
-
+                     
                         npcEntity.transform.localPosition = new Vector3(x, y, 0);
+                        npcEntity.Init();
                         npcEntity.SetTeam(teams[val]);
                         //boatObject.SetBoatData(boatData);
                         entities.Add(npcEntity);
@@ -97,14 +100,66 @@ public class ChaosLevel
         );
     }
 
-    public TileBase GetRandomFloorTile()
+    public void Tick()
     {
-      return GameManager.instance.floorTilemap.GetTile(
-        new Vector3Int(
+        //TODO Move this somewhere better
+        Dictionary<ChaosTeam, int> teamCounts = new Dictionary<ChaosTeam, int>();
+        teams.ForEach((team =>
+        {
+            teamCounts.Add(team, 0);    
+        }));
+        
+        GameManager.instance.level.entities.ForEach((entity =>
+        {
+            NPCEntity testNPCEntity = entity.GetComponent<NPCEntity>();
+            if (!testNPCEntity)
+            {
+                return;
+            }
+
+            if (!testNPCEntity.isAlive)
+            {
+                return;
+            }
+
+            int count = teamCounts[testNPCEntity.GetTeam()];
+            teamCounts[testNPCEntity.GetTeam()] = count + 1;
+        }));
+        bool triggerReset = false;
+        teams.ForEach((team =>
+        {
+            if (teamCounts[team] == 0)
+            {
+                triggerReset = true;
+                Debug.Log(team.name + " LOSES");
+                
+            }  
+        }));
+        if (triggerReset)
+        {
+            CleanUp();
+            InitLevel();
+        }
+    }
+
+    public void CleanUp()
+    {
+        entities.ForEach((entity) =>
+        {
+            entity.CleanUp();
+           //  Object.Destroy(entity.gameObject);
+           entity.gameObject.SetActive(false);
+        });
+        entities.Clear();
+        teams.Clear();
+    }
+
+    public Vector3Int GetRandomFloorTileVec()
+    {
+      return new Vector3Int(
             (int) Random.Range(0, MapDimensions.x),
             (int) Random.Range(0, MapDimensions.y),
                 0
-            )
         );
     }
 }

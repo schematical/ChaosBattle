@@ -34,6 +34,12 @@ namespace services
         {
             return !!heldByNPCEntity;
         }
+
+        public void Init()
+        {
+            heldByNPCEntity = null;
+        }
+
         private void OnCollisionExit2D(Collision2D other)
         {
    

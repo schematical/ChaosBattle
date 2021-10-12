@@ -38,7 +38,10 @@ public class BasicBrainV1 : BrainBase
                 {
                     return;
                 }
-
+                if (!testNPCEntity.isAlive)
+                {
+                    return;
+                }
                 float currEnemyDist = (testNPCEntity.transform.position - NpcEntity.transform.position).sqrMagnitude;
                 if (
                     !closestEnemy ||
@@ -77,13 +80,16 @@ public class BasicBrainV1 : BrainBase
                 NpcEntity.SetCurrentAction(baseAction);
                 return;
             }
-            if (heldByEntity.GetTeam().Equals(NpcEntity.GetTeam()))
+            /*if (heldByEntity.GetTeam().Equals(NpcEntity.GetTeam()))
             {
                 return;
-            }
+            }*/
             // Flee
-
-           Debug.Log("Setting Flee");
+            
+            Vector3Int targetVec = GameManager.instance.level.GetRandomFloorTileVec();
+            NavigateToAction wonderAction = new NavigateToAction(NpcEntity);
+            wonderAction.SetTargetVec(targetVec);
+            NpcEntity.SetCurrentAction(wonderAction);
             return;
         }));
     }

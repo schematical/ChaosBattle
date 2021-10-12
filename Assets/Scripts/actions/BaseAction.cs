@@ -26,7 +26,6 @@ public abstract class BaseAction
         activeTime += Time.deltaTime;
         if (activeTime > timeout)
         {
-            Debug.Log("Timedout: " + activeTime + " > " + timeout);
             TransitionPhase(ActionPhase.Finished);
         }
     }

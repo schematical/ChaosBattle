@@ -67,6 +67,10 @@ public class PrefabManager : MonoBehaviour {
             List<GameObject> gameObjects = pool[prefabName];
             foreach (GameObject gameObject in gameObjects)
             {
+                if (!gameObject)
+                {
+                    throw new Exception("Pool: " + prefabName + " is null");
+                }
                 if (!gameObject.activeInHierarchy)
                 {
                     gameObject.SetActive(true);

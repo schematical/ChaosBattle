@@ -39,6 +39,7 @@ namespace services
         private List<Vector2Int> _failCache = new List<Vector2Int>();
         private iNavagatable searcher;
         private GameObject target;
+        private Vector3 targetVec;
         private List<Path> _cacehdPaths;
         private Vector2Int _cachePos;
         private bool isNavigating = false;
@@ -71,7 +72,7 @@ namespace services
                     {
 
                         Path newPath = new Path(p.g + 1,
-                            BlocksToTarget(new Vector2(__x, __y), target.transform.position),
+                            BlocksToTarget(new Vector2(__x, __y), targetVec),
                             p, __x, __y);
                        
                         ret.Add(newPath);
@@ -91,6 +92,10 @@ namespace services
             
             Vector2 startPos = new Vector2(p.x + OFFSET, p.y + OFFSET);
             searcher.GetComponent<PolygonCollider2D>().enabled = false;
+            if (!target)
+            {
+                return false;
+            }
             PolygonCollider2D targetCollider = target.GetComponent<PolygonCollider2D>();
             if (targetCollider != null)
             {
@@ -136,13 +141,13 @@ namespace services
             {
                 
                 if (
-                    !Math.Ceiling(target.transform.position.x).Equals(_cachePos.x) ||
-                    !Math.Ceiling(target.transform.position.y).Equals(_cachePos.y)
+                    !Math.Ceiling(targetVec.x).Equals(_cachePos.x) ||
+                    !Math.Ceiling(targetVec.y).Equals(_cachePos.y)
                 )
                 {
 
                     _cacehdPaths = null;
-                    _cachePos = new Vector2Int((int)Math.Ceiling(target.transform.position.x), (int)Math.Ceiling(target.transform.position.y));
+                    _cachePos = new Vector2Int((int)Math.Ceiling(targetVec.x), (int)Math.Ceiling(targetVec.y));
                 }
                 else
                 {
@@ -159,8 +164,8 @@ namespace services
                 0, 
                 0, 
                 null,
-                (int)target.transform.position.x, 
-                (int)target.transform.position.y
+                (int)targetVec.x, 
+                (int)targetVec.y
             );
             
             openPathList.Add(
@@ -168,7 +173,7 @@ namespace services
                     0, 
                     BlocksToTarget(
                         searcher.transform.position, 
-                        target.transform.position
+                        targetVec
                     ), 
                     null,
                     (int)searcher.transform.position.x, 
@@ -266,7 +271,21 @@ namespace services
             }
             _cacehdPaths = null;
             target = gameObject;
-            _cachePos = new Vector2Int((int)Math.Ceiling(target.transform.position.x), (int)Math.Ceiling(target.transform.position.y));
+            targetVec = target.transform.position;
+            _cachePos = new Vector2Int(
+                (int)Math.Ceiling(targetVec.x), 
+                (int)Math.Ceiling(targetVec.y)
+                );
+        }
+
+        public void SetTargetVec(Vector3 vector3)
+        {
+            _cacehdPaths = null;
+            targetVec = vector3;
+            _cachePos = new Vector2Int(
+                (int)Math.Ceiling(targetVec.x), 
+                (int)Math.Ceiling(targetVec.y)
+            );
         }
 
         public void tickNavigate()
@@ -279,7 +298,11 @@ namespace services
             {
                 return;
             }
-            
+
+            if (target)
+            {
+                targetVec = target.transform.position;
+            }
         
             List<PathFinder.Path> pathTo = FindPath();
             if (pathTo == null)
@@ -329,9 +352,10 @@ namespace services
 
         public bool navigateTo(GameObject target)
         {
+            targetVec = target.transform.position;
             Vector2Int targetPos = new Vector2Int(
-                (int) target.transform.position.x,
-                (int) target.transform.position.y
+                (int) targetVec.x,
+                (int) targetVec.y
             );
             if (_failCache.Contains(targetPos))
             {
@@ -342,6 +366,27 @@ namespace services
             if (paths == null)
             {
                 _failCache.Add(targetPos);
+                return false;
+            }
+            isNavigating = true;
+            return true;
+        }
+        public bool navigateToVec(Vector3 targetPos)
+        {
+            target = null;
+            Vector2Int targetPos2 = new Vector2Int(
+                (int)targetPos.x,
+                (int)targetPos.y
+            );
+            if (_failCache.Contains(targetPos2))
+            {
+                return false;
+            }
+            SetTargetVec(targetPos);
+            List<Path> paths = FindPath();
+            if (paths == null)
+            {
+                _failCache.Add(targetPos2);
                 return false;
             }
             isNavigating = true;
