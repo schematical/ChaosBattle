@@ -1,16 +1,43 @@
 ﻿using System;
+using UnityEngine;
+public class ActionPhase {
+    public string Name {get; private set;}
 
-namespace services.actions
+    public ActionPhase(string name) {
+        Name = name;
+    }
+
+    public static ActionPhase Initializing = new ActionPhase("Initializing");
+    public static ActionPhase Finished = new ActionPhase("Finished");
+}
+public abstract class BaseAction
 {
-    public abstract class BaseAction
+    protected NPCEntity actingNPCEntity;
+    protected ActionPhase _phase = ActionPhase.Initializing;
+    private float activeTime = 0;
+    private float timeout = 5;
+    public BaseAction(NPCEntity npcEntity)
     {
-        protected NPCEntity actingNPCEntity;
+        actingNPCEntity = npcEntity;
+    }
 
-        public BaseAction(NPCEntity npcEntity)
+    public virtual void tick()
+    {
+        activeTime += Time.deltaTime;
+        if (activeTime > timeout)
         {
-            actingNPCEntity = npcEntity;
+            Debug.Log("Timedout: " + activeTime + " > " + timeout);
+            TransitionPhase(ActionPhase.Finished);
         }
-        public abstract void tick();
-        public abstract Boolean isFinished();
+    }
+
+    public virtual Boolean isFinished()
+    {
+        return _phase.Equals(ActionPhase.Finished);
+    }
+    protected virtual void TransitionPhase(ActionPhase actionPhase)
+    {
+        _phase = actionPhase;
+    
     }
 }

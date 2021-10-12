@@ -1,68 +1,72 @@
-﻿
-using System;
+﻿using System;
 using services;
-using services.actions;
 using UnityEngine;
 
-public enum ActionPhase
+public class UsePrimaryItemActionPhase : ActionPhase
 {
-    Navigating,
-    Windup,
-    Acting,
-    Cooldown,
-    Finished
-}
-public class UsePrimaryItemAction: NavigateToAction
-{
+    public static ActionPhase Navigating = new ActionPhase("Navigating");
+    public static ActionPhase Windup = new ActionPhase("Windup");
+    public static ActionPhase Acting = new ActionPhase("Acting");
+    public static ActionPhase Cooldown = new ActionPhase("Cooldown");
 
-    private ActionPhase _phase = ActionPhase.Navigating;
+    public UsePrimaryItemActionPhase(string name) : base(name)
+    {
+    }
+}
+
+public class UsePrimaryItemAction : NavigateToAction
+{
     private float windupRemainingDuration;
     private float cooldownRemainingDuration;
+
     public UsePrimaryItemAction(NPCEntity npcEntity) : base(npcEntity)
     {
         windupRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
-        cooldownRemainingDuration= actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
+        cooldownRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
         SetRangeGoal(actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.MeleeRange));
     }
 
 
     public override void tick()
     {
-        switch (_phase)
+        base.tick();
+        if (_phase.Equals(UsePrimaryItemActionPhase.Initializing))
         {
-            case(ActionPhase.Navigating):
-                base.tick();
-                break;
-            case(ActionPhase.Windup): 
-                windupRemainingDuration -= Time.deltaTime;
-                actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
-                if (windupRemainingDuration <= 0)
-                {
-                    TransitionPhase(ActionPhase.Acting);
-                }
-                break;
-            case(ActionPhase.Cooldown): 
-                cooldownRemainingDuration -= Time.deltaTime;
-                actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
-                if (cooldownRemainingDuration <= 0)
-                {
-                    TransitionPhase(ActionPhase.Finished);
-                }
-                break;
-
+            TransitionPhase(UsePrimaryItemActionPhase.Navigating);
         }
-     
+
+        
+        else if (_phase.Equals(UsePrimaryItemActionPhase.Windup))
+        {
+            Debug.Log("Windup: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
+            windupRemainingDuration -= Time.deltaTime;
+            actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
+            if (windupRemainingDuration <= 0)
+            {
+                TransitionPhase(UsePrimaryItemActionPhase.Acting);
+            }
+        }
+        else if (_phase.Equals(UsePrimaryItemActionPhase.Cooldown))
+        {
+            Debug.Log("Cooldown: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
+            cooldownRemainingDuration -= Time.deltaTime;
+            actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
+            if (cooldownRemainingDuration <= 0)
+            {
+                TransitionPhase(ActionPhase.Finished);
+            }
+        }
     }
 
     public override void EndNavigation()
     {
-    
-        TransitionPhase(ActionPhase.Windup);
+        TransitionPhase(UsePrimaryItemActionPhase.Windup);
     }
-    private void TransitionPhase(ActionPhase actionPhase)
+
+    protected override void TransitionPhase(ActionPhase actionPhase)
     {
-        _phase = actionPhase;
-        if (_phase.Equals(ActionPhase.Acting))
+        base.TransitionPhase(actionPhase);
+        if (_phase.Equals(UsePrimaryItemActionPhase.Acting))
         {
             fire();
         }
@@ -71,14 +75,16 @@ public class UsePrimaryItemAction: NavigateToAction
     private void fire()
     {
         actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
-        TransitionPhase(ActionPhase.Cooldown);
+        TransitionPhase(UsePrimaryItemActionPhase.Cooldown);
         if (Target is NPCEntity)
         {
-            Target.GetComponent<Rigidbody2D>().velocity = (Target.transform.position - actingNPCEntity.transform.position) * 10;
-            ((NPCEntity)Target).TakeDamage((int)actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Attack));
+            Target.GetComponent<Rigidbody2D>().velocity =
+                (Target.transform.position - actingNPCEntity.transform.position) * -5;
+            ((NPCEntity) Target).TakeDamage(
+                (int) actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Attack));
         }
-     
     }
+
     public override bool isFinished()
     {
         return _phase.Equals(ActionPhase.Finished);

@@ -1,4 +1,6 @@
-﻿using services.actions;
+﻿
+using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BasicBrainV1 : BrainBase
 {
@@ -53,6 +55,7 @@ public class BasicBrainV1 : BrainBase
             }
             UsePrimaryItemAction baseAction = new UsePrimaryItemAction(NpcEntity);
             baseAction.SetTarget(closestEnemy);
+  
             NpcEntity.SetCurrentAction(baseAction);
             return;
         }
@@ -79,7 +82,9 @@ public class BasicBrainV1 : BrainBase
                 return;
             }
             // Flee
-                
+
+           Debug.Log("Setting Flee");
+            return;
         }));
     }
 }

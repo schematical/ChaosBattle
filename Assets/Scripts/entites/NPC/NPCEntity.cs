@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using services;
-using services.actions;
 using UnityEngine;
 
 public class NPCEntity : ChaosEntity, iNavagatable

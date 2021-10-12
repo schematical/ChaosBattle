@@ -5,6 +5,7 @@ using services.Seed;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class ChaosLevel
 {
@@ -93,6 +94,17 @@ public class ChaosLevel
             MapDimensions.x / 2,
             MapDimensions.y / 2,
             -10
+        );
+    }
+
+    public TileBase GetRandomFloorTile()
+    {
+      return GameManager.instance.floorTilemap.GetTile(
+        new Vector3Int(
+            (int) Random.Range(0, MapDimensions.x),
+            (int) Random.Range(0, MapDimensions.y),
+                0
+            )
         );
     }
 }

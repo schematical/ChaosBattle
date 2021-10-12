@@ -15,27 +15,23 @@ namespace services
         public override void ApplyActionAnimation(ActionPhase actionPhase)
         {
             JointMotor2D motor  = new JointMotor2D();
-            switch (actionPhase)
+            if (actionPhase.Equals(UsePrimaryItemActionPhase.Windup))
             {
-                case(ActionPhase.Windup):
-                    //this.GetComponent<Rigidbody2D>().angularVelocity = -1f; 
-         
-                    motor.motorSpeed = -100f;
-                    motor.maxMotorTorque = 1000;
-                    GetHoldingEntity().handJoint.motor = motor;
-                    break;
-                case(ActionPhase.Acting):
-                   //  this.GetComponent<Rigidbody2D>().angularVelocity = 10f;
-                   motor.motorSpeed = 10000;
-                    motor.maxMotorTorque = 1000;
-                    GetHoldingEntity().handJoint.motor = motor;
-                    break;
-                case(ActionPhase.Cooldown):
-                    //  this.GetComponent<Rigidbody2D>().angularVelocity = 10f;
-                    motor.motorSpeed = (GetHoldingEntity().handJoint.motor.motorSpeed * 3) / 4;
-                    motor.maxMotorTorque = 1000;
-                    GetHoldingEntity().handJoint.motor = motor;
-                    break;
+                motor.motorSpeed = -100f;
+                motor.maxMotorTorque = 1000;
+                GetHoldingEntity().handJoint.motor = motor;
+            }else if (actionPhase.Equals(UsePrimaryItemActionPhase.Acting))
+            {
+                //  this.GetComponent<Rigidbody2D>().angularVelocity = 10f;
+                motor.motorSpeed = 10000;
+                motor.maxMotorTorque = 1000;
+                GetHoldingEntity().handJoint.motor = motor;
+            } else if (actionPhase.Equals(UsePrimaryItemActionPhase.Cooldown)) {
+                //  this.GetComponent<Rigidbody2D>().angularVelocity = 10f;
+                motor.motorSpeed = (GetHoldingEntity().handJoint.motor.motorSpeed * 3) / 4;
+                motor.maxMotorTorque = 1000;
+                GetHoldingEntity().handJoint.motor = motor;
+                 
             }
         }
     }

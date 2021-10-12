@@ -1,16 +1,13 @@
-﻿
-using services;
-using services.actions;
-using UnityEngine;
+﻿using services;
 
-public class NavigateToAction: BaseAction
+public class NavigateToAction : BaseAction
 {
     private ChaosEntity target;
     private bool hasArrived = false;
     private float rangeGoal = 5;
+
     public NavigateToAction(NPCEntity npcEntity) : base(npcEntity)
     {
-
     }
 
     public ChaosEntity Target => target;
@@ -25,24 +22,22 @@ public class NavigateToAction: BaseAction
     {
         this.rangeGoal = rangeGoal;
     }
+
     public override void tick()
     {
+        base.tick();
+        float dist = (target.transform.position - actingNPCEntity.transform.position).sqrMagnitude;
 
-            float dist = (target.transform.position - actingNPCEntity.transform.position).sqrMagnitude;
-           
-            if (dist < rangeGoal)
-            {
-                EndNavigation();
-            }
+        if (dist < rangeGoal)
+        {
+            EndNavigation();
+        }
     }
 
-    public virtual  void EndNavigation()
+    public virtual void EndNavigation()
     {
-        hasArrived = true;
+       TransitionPhase(ActionPhase.Finished);
     }
 
-    public override bool isFinished()
-    {
-        return hasArrived;
-    }
+   
 }
