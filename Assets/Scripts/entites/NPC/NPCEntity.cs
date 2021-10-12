@@ -21,7 +21,8 @@ public class NPCEntity : ChaosEntity, iNavagatable
 
     NPCEntity() : base()
     {
-        InitStat(ChaosEntityStatType.Health, 100);
+        InitStat(ChaosEntityStatType.MaxHealth, 100);
+        InitStat(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.MaxHealth));
     }
 
     // Start is called before the first frame update
@@ -114,7 +115,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
         _particalSystem.Emit(hitPoints);
         int health = (int) GetStatVal(ChaosEntityStatType.Health);
         SetStatVal(ChaosEntityStatType.Health, health - hitPoints);
-        Debug.Log("Health: " + health);
+        Debug.Log("Damage Health: " + health);
     }
 
 
@@ -161,4 +162,18 @@ public class NPCEntity : ChaosEntity, iNavagatable
         // Destroy(NPCEntityHead);
         NPCEntityHead.SetActive(false);
     }
+
+    public void TakeHeal(int hitPoints)
+    {
+      
+        int health = (int) GetStatVal(ChaosEntityStatType.Health);
+        int newHealth = health + hitPoints;
+        if (newHealth > GetStatVal(ChaosEntityStatType.MaxHealth))
+        {
+            newHealth = (int)GetStatVal(ChaosEntityStatType.MaxHealth);
+        }
+        SetStatVal(ChaosEntityStatType.Health, newHealth);
+        Debug.Log("Healed: " + newHealth);
+    }
+
 }

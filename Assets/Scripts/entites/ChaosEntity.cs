@@ -2,42 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace services
+public class ChaosEntity : MonoBehaviour
 {
-    public class ChaosEntity: MonoBehaviour
+    public Dictionary<ChaosEntityStatType, ChaosEntityStat> stats =
+        new Dictionary<ChaosEntityStatType, ChaosEntityStat>();
+
+    private NPCEntity heldByNPCEntity;
+
+    protected ChaosEntityStat InitStat(ChaosEntityStatType type, float val)
     {
-        public Dictionary<ChaosEntityStatType, ChaosEntityStat> stats = new Dictionary<ChaosEntityStatType,ChaosEntityStat>();
-        private NPCEntity heldByNPCEntity;
+        ChaosEntityStat stat = new ChaosEntityStat(type, val);
+        stats.Add(type, stat);
+        return stat;
+    }
 
-        protected ChaosEntityStat InitStat(ChaosEntityStatType type, float val) 
+    public float GetStatVal(ChaosEntityStatType type)
+    {
+        if (!stats.ContainsKey(type))
         {
-            ChaosEntityStat stat = new ChaosEntityStat(type, val);
-            stats.Add(type, stat);
-            return stat;
+            throw new Exception("No `stat` of type: " + type.ToString());
         }
 
-        public float GetStatVal(ChaosEntityStatType type)
-        {
-            if (!stats.ContainsKey(type))
-            {
-                throw new Exception("No `stat` of type: " + type.ToString());
-            }
+        return stats[type].GetVal();
+    }
 
-            return stats[type].GetVal();
-        }
-        public void SetStatVal(ChaosEntityStatType type, float val)
+    public void SetStatVal(ChaosEntityStatType type, float val)
+    {
+        if (!stats.ContainsKey(type))
         {
-            if (!stats.ContainsKey(type))
-            {
-                throw new Exception("No `stat` of type: " + type.ToString());
-            }
-
-            stats[type].SetVal(val);
+            throw new Exception("No `stat` of type: " + type.ToString());
         }
 
-        public virtual void CleanUp()
-        {
-            
-        }
+        stats[type].SetVal(val);
+    }
+
+    public virtual void CleanUp()
+    {
     }
 }

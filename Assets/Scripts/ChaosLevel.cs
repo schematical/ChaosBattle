@@ -12,23 +12,13 @@ public class ChaosLevel
 {
     public static readonly int Border = 8;
     public static readonly Vector2 MapDimensions = new Vector2(16, 16);
-    public SwordObject swordObject;
     public List<ChaosTeam> teams = new List<ChaosTeam>();
     public List<ChaosEntity> entities = new List<ChaosEntity>();
     public void InitLevel()
     {
         teams.Add(new ChaosTeam("Team 1"));
         teams.Add(new ChaosTeam("Team 2"));
-        
-        swordObject = GameManager.instance.PrefabManager.Get("SwordObject").GetComponent<SwordObject>();
-             
-        swordObject.transform.localPosition = new Vector3(
-            MapDimensions.x / 2, 
-            MapDimensions.y / 2,
-            -2
-        );
-        swordObject.Init();
-        entities.Add(swordObject);
+
         for (int x = 0 - Border; x < MapDimensions.x + Border; x++)
         {
             for (int y = 0 - Border; y < MapDimensions.y + Border; y++)
@@ -62,7 +52,7 @@ public class ChaosLevel
 
                     ChaosSeed chaosSeed = GameManager.instance.ChaosSeed.Spawn("_" + x + "," + y);
 
-                    int val = chaosSeed.Next(0, 50);
+                    int val = chaosSeed.Next(0, 100);
                     if (val < 2)
                     {
 
@@ -88,6 +78,20 @@ public class ChaosLevel
                         //boatObject.SetBoatData(boatData);
                         entities.Add(npcEntity);
 
+                    } else if (val == 2)
+                    {
+                        SwordMeeleWeaponItem swordObject = GameManager.instance.PrefabManager.Get("SwordMeeleWeaponItem").GetComponent<SwordMeeleWeaponItem>();
+             
+                        swordObject.transform.localPosition = new Vector3(x, y, -2);
+                        swordObject.Init();
+                        entities.Add(swordObject);
+                    }else if (val == 3)
+                    {
+                        MedkitItem medkitItem = GameManager.instance.PrefabManager.Get("MedkitItem").GetComponent<MedkitItem>();
+             
+                        medkitItem.transform.localPosition = new Vector3(x, y, -2);
+                        medkitItem.Init();
+                        entities.Add(medkitItem);
                     }
                 }
 
@@ -161,5 +165,27 @@ public class ChaosLevel
             (int) Random.Range(0, MapDimensions.y),
                 0
         );
+    }
+
+    public ChaosEntity FindClosestEntity(Vector3 vector3, Func<ChaosEntity, bool> test)
+    {
+        ChaosEntity closestEntity = null;
+        float closestEntityDist = 99999;
+     
+        entities.ForEach((entity => {
+            if (!test(entity))
+            {
+                return;
+            }
+            float currEnemyDist = (entity.transform.position - vector3).sqrMagnitude;
+            if (
+                !closestEntity ||
+                currEnemyDist < closestEntityDist  
+            ) {
+                closestEntity = entity;
+                closestEntityDist = currEnemyDist;
+            }
+        })); 
+        return closestEntity;
     }
 }

@@ -24,73 +24,62 @@ public class BasicBrainV1 : BrainBase
         if (NpcEntity.primaryHeldItem)
         {
             // Find someone on the other team and attack
-            NPCEntity closestEnemy = null;
+            
             float closesEnemyDist = 99999;
-            GameManager.instance.level.entities.ForEach((entity =>
+            NPCEntity closestEnemy = (NPCEntity)GameManager.instance.level.FindClosestEntity(NpcEntity.transform.position, (ChaosEntity chaosEntity) =>
             {
-                NPCEntity testNPCEntity = entity.GetComponent<NPCEntity>();
+                NPCEntity testNPCEntity = chaosEntity.GetComponent<NPCEntity>();
                 if (!testNPCEntity)
                 {
-                    return;
+                    return false;
                 }
 
                 if (testNPCEntity.GetTeam().Equals(NpcEntity.GetTeam()))
                 {
-                    return;
+                    return false;
                 }
                 if (!testNPCEntity.isAlive)
                 {
-                    return;
+                    return false;
                 }
-                float currEnemyDist = (testNPCEntity.transform.position - NpcEntity.transform.position).sqrMagnitude;
-                if (
-                    !closestEnemy ||
-                    currEnemyDist < closesEnemyDist  
-                ) {
-                    closestEnemy = testNPCEntity;
-                    closesEnemyDist = currEnemyDist;
-                }
-                
-            }));
+                return true;
+            });
+           
             if (!closestEnemy)
             {
                 return;
             }
             UsePrimaryItemAction baseAction = new UsePrimaryItemAction(NpcEntity);
             baseAction.SetTarget(closestEnemy);
-  
             NpcEntity.SetCurrentAction(baseAction);
             return;
         }
-        
-        // By default search for the item or flee
-        GameManager.instance.level.entities.ForEach((entity =>
+        ChoasItem nearestAvailableItem = (ChoasItem)GameManager.instance.level.FindClosestEntity(NpcEntity.transform.position, (ChaosEntity chaosEntity) =>
         {
-            SwordObject swordObject = entity.GetComponent<SwordObject>();
-            if (!swordObject)
+            ChoasItem testItem = chaosEntity.GetComponent<ChoasItem>();
+            if (!testItem)
             {
-                return;
+                return false;
             }
-
-            NPCEntity heldByEntity = swordObject.GetHoldingEntity();
-            if (!heldByEntity)
-            {
-                NavigateToAction baseAction = new NavigateToAction(NpcEntity);
-                baseAction.SetTarget(swordObject);
-                NpcEntity.SetCurrentAction(baseAction);
-                return;
-            }
-            /*if (heldByEntity.GetTeam().Equals(NpcEntity.GetTeam()))
-            {
-                return;
-            }*/
-            // Flee
             
-            Vector3Int targetVec = GameManager.instance.level.GetRandomFloorTileVec();
-            NavigateToAction wonderAction = new NavigateToAction(NpcEntity);
-            wonderAction.SetTargetVec(targetVec);
-            NpcEntity.SetCurrentAction(wonderAction);
+            if (testItem.GetHoldingEntity())
+            {
+                return false;
+            }
+            return true;
+        });
+        if (nearestAvailableItem)
+        {
+            NavigateToAction navToItemAction = new NavigateToAction(NpcEntity);
+            navToItemAction.SetTarget(nearestAvailableItem);
+            NpcEntity.SetCurrentAction(navToItemAction);
             return;
-        }));
+        }
+        
+        Vector3Int targetVec = GameManager.instance.level.GetRandomFloorTileVec();
+        NavigateToAction wonderAction = new NavigateToAction(NpcEntity);
+        wonderAction.SetTargetVec(targetVec);
+        NpcEntity.SetCurrentAction(wonderAction);
+        
     }
 }

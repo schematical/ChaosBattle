@@ -26,5 +26,7 @@ public enum ChaosEntityStatType
     Windup,
     Attack,
     Cooldown,
-    MeleeRange
+    Range,
+    HealthRecovered,
+    MaxHealth
 }

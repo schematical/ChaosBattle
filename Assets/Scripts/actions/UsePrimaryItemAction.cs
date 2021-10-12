@@ -23,7 +23,7 @@ public class UsePrimaryItemAction : NavigateToAction
     {
         windupRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
         cooldownRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
-        SetRangeGoal(actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.MeleeRange));
+        SetRangeGoal(actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range));
     }
 
 
@@ -74,14 +74,10 @@ public class UsePrimaryItemAction : NavigateToAction
     private void fire()
     {
         actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
+        Debug.Log("UsePrimartItemAction.Use on item: " + actingNPCEntity.primaryHeldItem.name);
+        actingNPCEntity.primaryHeldItem.Use(Target);
         TransitionPhase(UsePrimaryItemActionPhase.Cooldown);
-        if (Target is NPCEntity)
-        {
-            Target.GetComponent<Rigidbody2D>().velocity =
-                (Target.transform.position - actingNPCEntity.transform.position) * -5;
-            ((NPCEntity) Target).TakeDamage(
-                (int) actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Attack));
-        }
+       
     }
 
     public override bool isFinished()

@@ -332,7 +332,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -376,11 +376,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 5620171818021290798, guid: f3227792cf309c540b91b09696739275, type: 3}
-  - {fileID: 8119252244200694695, guid: f4202225a0e9ec24b8aa7e3cdd36c224, type: 3}
   - {fileID: 6577311865182597950, guid: 8a39b93cbf0d10e49b05bccb75117772, type: 3}
+  - {fileID: 4598084794577702147, guid: 4e7e5f23b278a9048851c0275f70c966, type: 3}
+  - {fileID: 8119252244200694695, guid: f4202225a0e9ec24b8aa7e3cdd36c224, type: 3}
   defaultParent: {fileID: 886824064}
   sprites: []
-  tiles: []
+  tiles:
+  - {fileID: 11400000, guid: f57a22c8c328e9f45a59ae7f7276f327, type: 2}
+  - {fileID: 11400000, guid: 551e6c3f2e61ae74399377f45e8b993c, type: 2}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
