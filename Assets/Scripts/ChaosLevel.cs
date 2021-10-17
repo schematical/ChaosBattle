@@ -48,50 +48,57 @@ public class ChaosLevel
                 );
                 if (!isOutsideOfBattleField)
                 {
+                    ChaosTeam team = null;
+                    int? placeY = null;
+                    if (y == 0)
+                    {
+                        placeY = y;
+                        team = teams[0];
+                    }else if (y == MapDimensions.y - 1)
+                    {
+                        placeY = y;
+                        team = teams[1];
+                    }
 
+                    if (team != null)
+                    {
+                        if ((x % 4) == 0)
+                        {
+                            SpawnNPC(x, y, team);
+                        }
+                    }
+                    
 
                     ChaosSeed chaosSeed = GameManager.instance.ChaosSeed.Spawn("_" + x + "," + y);
-
-                    int val = chaosSeed.Next(0, 100);
-                    if (val < 2)
+                    if (y == MapDimensions.y / 2)
                     {
+                        int val = chaosSeed.Next(0, 7);
+                        if (val == 1)
+                        {
+                            SwordMeeleWeaponItem swordObject = GameManager.instance.PrefabManager
+                                .Get("SwordMeeleWeaponItem").GetComponent<SwordMeeleWeaponItem>();
 
-                        /*float rotation = chaosSeed.Next(0, 3);
-                           
-                        IslandObject islandObject = GameManager.instance.PrefabManager.Get("IslandObject").GetComponent<IslandObject>();
-                        IslandData islandData = new IslandData();
-                        islandData.Init( chaosSeed);
-                        islandObject.SetIslandData(islandData);
-                        islandObject.transform.Rotate(new Vector3(0,0, (float)(rotation * 90)));
-                        islandObject.transform.localPosition = new Vector3(x, y, 0);
-                        _islandObjects.Add(islandObject);
-                    }else if (val.Equals(3))
-                    { */
-                        // BoatData boatData = BoatBuilder.BuildRandomBoat(chaosSeed);
+                            swordObject.transform.localPosition = new Vector3(x, y, -2);
+                            swordObject.Init();
+                            entities.Add(swordObject);
+                        }
+                        else if (val == 2)
+                        {
+                            MedkitItem medkitItem = GameManager.instance.PrefabManager.Get("MedkitItem")
+                                .GetComponent<MedkitItem>();
 
-                        NPCEntity npcEntity = GameManager.instance.PrefabManager.Get("NPCEntity")
-                            .GetComponent<NPCEntity>();
-                     
-                        npcEntity.transform.localPosition = new Vector3(x, y, 0);
-                        npcEntity.Init();
-                        npcEntity.SetTeam(teams[val]);
-                        //boatObject.SetBoatData(boatData);
-                        entities.Add(npcEntity);
+                            medkitItem.transform.localPosition = new Vector3(x, y, -2);
+                            medkitItem.Init();
+                            entities.Add(medkitItem);
+                        } else if (val == 3)
+                        {
+                            TireShieldItem chaosShieldItem = GameManager.instance.PrefabManager.Get("TireShieldItem")
+                                .GetComponent<TireShieldItem>();
 
-                    } else if (val == 2)
-                    {
-                        SwordMeeleWeaponItem swordObject = GameManager.instance.PrefabManager.Get("SwordMeeleWeaponItem").GetComponent<SwordMeeleWeaponItem>();
-             
-                        swordObject.transform.localPosition = new Vector3(x, y, -2);
-                        swordObject.Init();
-                        entities.Add(swordObject);
-                    }else if (val == 3)
-                    {
-                        MedkitItem medkitItem = GameManager.instance.PrefabManager.Get("MedkitItem").GetComponent<MedkitItem>();
-             
-                        medkitItem.transform.localPosition = new Vector3(x, y, -2);
-                        medkitItem.Init();
-                        entities.Add(medkitItem);
+                            chaosShieldItem.transform.localPosition = new Vector3(x, y, -2);
+                            chaosShieldItem.Init();
+                            entities.Add(chaosShieldItem);
+                        }
                     }
                 }
 
@@ -102,6 +109,19 @@ public class ChaosLevel
             MapDimensions.y / 2,
             -10
         );
+    }
+
+    public NPCEntity SpawnNPC(int x, int y, ChaosTeam team)
+    {
+        NPCEntity npcEntity = GameManager.instance.PrefabManager.Get("NPCEntity")
+            .GetComponent<NPCEntity>();
+                     
+        npcEntity.transform.localPosition = new Vector3(x, y, 0);
+        npcEntity.Init();
+        npcEntity.SetTeam(team);
+        //boatObject.SetBoatData(boatData);
+        entities.Add(npcEntity);
+        return npcEntity;
     }
 
     public void Tick()

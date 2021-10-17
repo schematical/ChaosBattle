@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
 
-    public class ChaosHealingItem: ChoasItem
+    public class ChaosShieldItem: ChoasItem
     {
         private ParticleSystem _particalSystem;
 
-        public ChaosHealingItem(): base()
+        public ChaosShieldItem(): base()
         {
-            InitStat(ChaosEntityStatType.HealthRecovered, 15);
+            InitStat(ChaosEntityStatType.StunDuration, 5);
             InitStat(ChaosEntityStatType.Range, 2);
-            InitStat(ChaosEntityStatType.Windup, 1);
-            InitStat(ChaosEntityStatType.Cooldown, 2);
+            InitStat(ChaosEntityStatType.Windup, 5);
+            InitStat(ChaosEntityStatType.Cooldown, 5);
         }
 
         public virtual void Start()
@@ -42,15 +42,14 @@
         }
         public override void Use(ChaosEntity target)
         {
-            Debug.Log("ChoasHealingItem.Use on " + target.name);
+            Debug.Log("ChaosShieldItem.Use on " + target.name);
             if (target is NPCEntity)
             {
-                ParticleSystem.MainModule main = _particalSystem.main;
-                main.startColor = Color.green;
-                _particalSystem.Emit((int)GetStatVal(ChaosEntityStatType.HealthRecovered));
-                
-                ((NPCEntity) target).TakeHeal(
-                    (int) GetStatVal(ChaosEntityStatType.HealthRecovered)
+                _particalSystem.Emit((int)GetStatVal(ChaosEntityStatType.StunDuration));
+                target.GetComponent<Rigidbody2D>().velocity =
+                    (target.transform.position - HeldByNpcEntity.transform.position) * -2;
+                ((NPCEntity) target).TakeStun(
+                    (int) GetStatVal(ChaosEntityStatType.StunDuration)
                 );
             }
         }

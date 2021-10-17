@@ -23,6 +23,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
     {
         InitStat(ChaosEntityStatType.MaxHealth, 100);
         InitStat(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.MaxHealth));
+        InitStat(ChaosEntityStatType.StunDuration, 0);
     }
 
     // Start is called before the first frame update
@@ -60,17 +61,10 @@ public class NPCEntity : ChaosEntity, iNavagatable
     // Update is called once per frame
     void Update()
     {
-        brain.tick();
-        currAction?.tick();
-        PathFinder.tickNavigate();
-        /*if (primaryHeldItem)
+        if (!isAlive)
         {
-            primaryHeldItem.transform.localPosition = new Vector3(
-                this.transform.localPosition.x,
-                this.transform.localPosition.y,
-             this.transform.localPosition.z - 1
-            );
-        }*/
+            return;
+        }
 
         if (
             isAlive &&
@@ -86,6 +80,34 @@ public class NPCEntity : ChaosEntity, iNavagatable
             bodyColor.b * (1 - redPct)
         );
 
+        
+        float stunDuration = GetStatVal(ChaosEntityStatType.StunDuration);
+        if (stunDuration > 0)
+        {
+            SetStatVal(ChaosEntityStatType.StunDuration, stunDuration - Time.deltaTime);
+            Debug.Log("Stunned: " + stunDuration);
+            _rigidbody2D.rotation = 90;
+            return;
+        }
+
+        if (stunDuration <= 0)
+        {
+            _rigidbody2D.rotation = 0;
+            // SetStatVal(ChaosEntityStatType.StunDuration, 0);
+        }
+        brain.tick();
+        currAction?.tick();
+        PathFinder.tickNavigate();
+        /*if (primaryHeldItem)
+        {
+            primaryHeldItem.transform.localPosition = new Vector3(
+                this.transform.localPosition.x,
+                this.transform.localPosition.y,
+             this.transform.localPosition.z - 1
+            );
+        }*/
+
+     
         // SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.Health) - 1);
     }
 
@@ -176,4 +198,10 @@ public class NPCEntity : ChaosEntity, iNavagatable
         Debug.Log("Healed: " + newHealth);
     }
 
+    public void TakeStun(int stunDuration)
+    {
+       
+        SetStatVal(ChaosEntityStatType.StunDuration, stunDuration);
+        Debug.Log("Stunned: " + stunDuration);
+    }
 }

@@ -1,6 +1,14 @@
 ﻿using services;
 using UnityEngine;
+public class NavigateToActionPhase : ActionPhase
+{
+    public static ActionPhase Navigating = new ActionPhase("Navigating");
 
+
+    public NavigateToActionPhase(string name) : base(name)
+    {
+    }
+}
 public class NavigateToAction : BaseAction
 {
     private ChaosEntity target;
@@ -33,15 +41,22 @@ public class NavigateToAction : BaseAction
     public override void tick()
     {
         base.tick();
-        if (target)
+        if (_phase.Equals(UsePrimaryItemActionPhase.Initializing))
         {
-            targetVec = target.transform.position;
-        }
-        float dist = (targetVec - actingNPCEntity.transform.position).sqrMagnitude;
+            TransitionPhase(UsePrimaryItemActionPhase.Navigating);
+        } else if (_phase.Equals(UsePrimaryItemActionPhase.Navigating))
+        {
+            if (target)
+            {
+                targetVec = target.transform.position;
+            }
 
-        if (dist < rangeGoal)
-        {
-            EndNavigation();
+            float dist = (targetVec - actingNPCEntity.transform.position).sqrMagnitude;
+
+            if (dist < rangeGoal)
+            {
+                EndNavigation();
+            }
         }
     }
 

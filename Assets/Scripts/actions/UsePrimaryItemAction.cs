@@ -2,9 +2,8 @@
 using services;
 using UnityEngine;
 
-public class UsePrimaryItemActionPhase : ActionPhase
+public class UsePrimaryItemActionPhase : NavigateToActionPhase
 {
-    public static ActionPhase Navigating = new ActionPhase("Navigating");
     public static ActionPhase Windup = new ActionPhase("Windup");
     public static ActionPhase Acting = new ActionPhase("Acting");
     public static ActionPhase Cooldown = new ActionPhase("Cooldown");
@@ -22,7 +21,7 @@ public class UsePrimaryItemAction : NavigateToAction
     public UsePrimaryItemAction(NPCEntity npcEntity) : base(npcEntity)
     {
         windupRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
-        cooldownRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
+        cooldownRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Cooldown);
         SetRangeGoal(actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range));
     }
 
@@ -30,10 +29,7 @@ public class UsePrimaryItemAction : NavigateToAction
     public override void tick()
     {
         base.tick();
-        if (_phase.Equals(UsePrimaryItemActionPhase.Initializing))
-        {
-            TransitionPhase(UsePrimaryItemActionPhase.Navigating);
-        }
+     
 
         
         if (_phase.Equals(UsePrimaryItemActionPhase.Windup))
@@ -59,7 +55,10 @@ public class UsePrimaryItemAction : NavigateToAction
 
     public override void EndNavigation()
     {
-        TransitionPhase(UsePrimaryItemActionPhase.Windup);
+        if (_phase.Equals(UsePrimaryItemActionPhase.Navigating))
+        {
+            TransitionPhase(UsePrimaryItemActionPhase.Windup);
+        }
     }
 
     protected override void TransitionPhase(ActionPhase actionPhase)

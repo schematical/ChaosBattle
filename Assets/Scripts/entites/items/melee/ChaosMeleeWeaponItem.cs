@@ -5,7 +5,7 @@ public class ChaosMeleeWeaponItem : ChoasItem
     public ChaosMeleeWeaponItem() : base()
     {
         InitStat(ChaosEntityStatType.Attack, 5);
-        InitStat(ChaosEntityStatType.Range, 2);
+        InitStat(ChaosEntityStatType.Range, 3);
         InitStat(ChaosEntityStatType.Windup, 1);
         InitStat(ChaosEntityStatType.Cooldown, 2);
     }
@@ -40,7 +40,7 @@ public class ChaosMeleeWeaponItem : ChoasItem
         if (target is NPCEntity)
         {
             target.GetComponent<Rigidbody2D>().velocity =
-                (target.transform.position - HeldByNpcEntity.transform.position) * -5;
+                (target.transform.position - HeldByNpcEntity.transform.position) * -2;
             ((NPCEntity) target).TakeDamage(
                 (int) GetStatVal(ChaosEntityStatType.Attack)
             );

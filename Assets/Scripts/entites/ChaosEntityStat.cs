@@ -28,5 +28,6 @@ public enum ChaosEntityStatType
     Cooldown,
     Range,
     HealthRecovered,
-    MaxHealth
+    MaxHealth,
+    StunDuration
 }

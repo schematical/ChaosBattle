@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ChaosEntity : MonoBehaviour
+public class ChaosEntity : MonoBehaviour, IPointerClickHandler 
 {
     public Dictionary<ChaosEntityStatType, ChaosEntityStat> stats =
         new Dictionary<ChaosEntityStatType, ChaosEntityStat>();
@@ -38,5 +39,10 @@ public class ChaosEntity : MonoBehaviour
 
     public virtual void CleanUp()
     {
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        throw new NotImplementedException();
     }
 }

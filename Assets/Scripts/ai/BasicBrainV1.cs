@@ -33,15 +33,36 @@ public class BasicBrainV1 : BrainBase
                 {
                     return false;
                 }
-
-                if (testNPCEntity.GetTeam().Equals(NpcEntity.GetTeam()))
-                {
-                    return false;
-                }
                 if (!testNPCEntity.isAlive)
                 {
                     return false;
                 }
+
+                /*if (testNPCEntity.Equals(NpcEntity))
+                {
+                    return false;
+                }*/
+                if (NpcEntity.primaryHeldItem is ChaosHealingItem)
+                {
+                    if (!testNPCEntity.GetTeam().Equals(NpcEntity.GetTeam()))
+                    {
+                        return false;
+                    }
+                    
+                    if (testNPCEntity.GetStatVal(ChaosEntityStatType.Health) >=
+                        testNPCEntity.GetStatVal(ChaosEntityStatType.MaxHealth))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (testNPCEntity.GetTeam().Equals(NpcEntity.GetTeam()))
+                    {
+                        return false;
+                    }
+                }
+
                 return true;
             });
            
