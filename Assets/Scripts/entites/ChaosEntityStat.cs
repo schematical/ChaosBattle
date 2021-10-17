@@ -10,6 +10,10 @@ public class ChaosEntityStat
         this.val = val;
     }
 
+    public ChaosEntityStatType GetStatType()
+    {
+        return type;
+    }
     public void SetVal(float val)
     {
         this.val = val;

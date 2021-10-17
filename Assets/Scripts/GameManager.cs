@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public ChaosLevel level = new ChaosLevel();
 
     public ChaosSeed ChaosSeed;
+    public MenuManager menuManager;
 
     // Start is called before the first frame update
     void Start()

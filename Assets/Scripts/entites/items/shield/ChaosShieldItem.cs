@@ -9,8 +9,8 @@
         {
             InitStat(ChaosEntityStatType.StunDuration, 5);
             InitStat(ChaosEntityStatType.Range, 2);
-            InitStat(ChaosEntityStatType.Windup, 5);
-            InitStat(ChaosEntityStatType.Cooldown, 5);
+            InitStat(ChaosEntityStatType.Windup, 1);
+            InitStat(ChaosEntityStatType.Cooldown, 7);
         }
 
         public virtual void Start()

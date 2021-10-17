@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 public class ChaosLevel
 {
     public static readonly int Border = 8;
-    public static readonly Vector2 MapDimensions = new Vector2(16, 16);
+    public static readonly Vector2 MapDimensions = new Vector2(18, 14);
     public List<ChaosTeam> teams = new List<ChaosTeam>();
     public List<ChaosEntity> entities = new List<ChaosEntity>();
     public void InitLevel()

@@ -73,7 +73,6 @@ public class UsePrimaryItemAction : NavigateToAction
     private void fire()
     {
         actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
-        Debug.Log("UsePrimartItemAction.Use on item: " + actingNPCEntity.primaryHeldItem.name);
         actingNPCEntity.primaryHeldItem.Use(Target);
         TransitionPhase(UsePrimaryItemActionPhase.Cooldown);
        
@@ -82,5 +81,10 @@ public class UsePrimaryItemAction : NavigateToAction
     public override bool isFinished()
     {
         return _phase.Equals(ActionPhase.Finished);
+    }
+    public override string GetDebugString()
+    {
+        string className = GetType().Name;
+        return className + "(Phase: " + _phase.Name + "," + "Item: " + actingNPCEntity.primaryHeldItem.GetType().FullName + ")";
     }
 }

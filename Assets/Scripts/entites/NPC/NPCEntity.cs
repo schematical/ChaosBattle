@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NPCEntity : ChaosEntity, iNavagatable
 {
-    private GameObject NPCEntityHead;
+    private NPCEntityHead NPCEntityHead;
     private Rigidbody2D _rigidbody2D;
     public PathFinder PathFinder;
     private Vector2Int lastVector2Int;
@@ -43,12 +43,13 @@ public class NPCEntity : ChaosEntity, iNavagatable
         SetStatVal(ChaosEntityStatType.Health, 100);
         isAlive = true;
         brain = new BasicBrainV1(this);
-        NPCEntityHead = GameManager.instance.PrefabManager.Get("NPCEntityHead");
+        NPCEntityHead = GameManager.instance.PrefabManager.Get("NPCEntityHead").GetComponent<NPCEntityHead>();
         NPCEntityHead.transform.localPosition = new Vector3(
             transform.localPosition.x,
             transform.localPosition.y + .5f,
             0
         );
+        NPCEntityHead.SetNPCEntity(this);
         handJoint = GetComponents<HingeJoint2D>()[1];
         handJoint.enabled = false;
         
@@ -137,7 +138,6 @@ public class NPCEntity : ChaosEntity, iNavagatable
         _particalSystem.Emit(hitPoints);
         int health = (int) GetStatVal(ChaosEntityStatType.Health);
         SetStatVal(ChaosEntityStatType.Health, health - hitPoints);
-        Debug.Log("Damage Health: " + health);
     }
 
 
@@ -182,7 +182,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
     {
         base.CleanUp();
         // Destroy(NPCEntityHead);
-        NPCEntityHead.SetActive(false);
+        NPCEntityHead.gameObject.SetActive(false);
     }
 
     public void TakeHeal(int hitPoints)
@@ -195,13 +195,16 @@ public class NPCEntity : ChaosEntity, iNavagatable
             newHealth = (int)GetStatVal(ChaosEntityStatType.MaxHealth);
         }
         SetStatVal(ChaosEntityStatType.Health, newHealth);
-        Debug.Log("Healed: " + newHealth);
     }
 
     public void TakeStun(int stunDuration)
     {
        
         SetStatVal(ChaosEntityStatType.StunDuration, stunDuration);
-        Debug.Log("Stunned: " + stunDuration);
+
+    }
+    public override string GetDebugString()
+    {
+        return "Action: " + currAction.GetDebugString();
     }
 }

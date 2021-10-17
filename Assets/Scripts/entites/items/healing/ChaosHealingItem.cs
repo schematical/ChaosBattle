@@ -42,7 +42,6 @@
         }
         public override void Use(ChaosEntity target)
         {
-            Debug.Log("ChoasHealingItem.Use on " + target.name);
             if (target is NPCEntity)
             {
                 ParticleSystem.MainModule main = _particalSystem.main;

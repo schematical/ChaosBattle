@@ -43,6 +43,15 @@ public class ChaosEntity : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        throw new NotImplementedException();
+        GameManager.instance.menuManager.chaosEntityDetailPanel.Show(this);
+    }
+    public Dictionary<ChaosEntityStatType, ChaosEntityStat> GetAllStatVals()
+    {
+        return stats;
+    }
+
+    public virtual string GetDebugString()
+    {
+        return "";
     }
 }

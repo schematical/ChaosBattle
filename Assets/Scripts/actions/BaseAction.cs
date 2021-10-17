@@ -39,4 +39,10 @@ public abstract class BaseAction
         _phase = actionPhase;
     
     }
+
+    public virtual string GetDebugString()
+    {
+        string className = GetType().Name;
+        return className + "(Phase: " + _phase.Name + ")";
+    }
 }
