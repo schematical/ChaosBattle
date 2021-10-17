@@ -11,14 +11,15 @@ public class NPCEntity : ChaosEntity, iNavagatable
     public PathFinder PathFinder;
     private Vector2Int lastVector2Int;
     public ChaosTeam chaosTeam;
-    public ChoasItem primaryHeldItem;
+    public ChaosItem primaryHeldItem;
     public bool isAlive = true;
     public Color bodyColor = Color.green;
     public HingeJoint2D handJoint;
     private BrainBase brain;
     private BaseAction currAction = null;
     private ParticleSystem _particalSystem;
-
+    private List<BaseAction> actionHistory = new List<BaseAction>();
+    private List<ChaosInteraction> _interactions = new List<ChaosInteraction>();
     NPCEntity() : base()
     {
         InitStat(ChaosEntityStatType.MaxHealth, 100);
@@ -57,6 +58,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
         GetComponents<Joint2D>()[0].connectedBody = headRigidbody2D;
         primaryHeldItem = null;
         currAction = null;
+        actionHistory.Clear();
     }
 
     // Update is called once per frame
@@ -83,10 +85,9 @@ public class NPCEntity : ChaosEntity, iNavagatable
 
         
         float stunDuration = GetStatVal(ChaosEntityStatType.StunDuration);
-        if (stunDuration > 0)
+        if (IsStunned())
         {
             SetStatVal(ChaosEntityStatType.StunDuration, stunDuration - Time.deltaTime);
-            Debug.Log("Stunned: " + stunDuration);
             _rigidbody2D.rotation = 90;
             return;
         }
@@ -120,6 +121,12 @@ public class NPCEntity : ChaosEntity, iNavagatable
     public void SetCurrentAction(BaseAction baseAction)
     {
         currAction = baseAction;
+        actionHistory.Add(currAction);
+    }
+
+    public List<BaseAction> GetActionHistory()
+    {
+        return actionHistory;
     }
 
     private void MarkDead()
@@ -133,11 +140,17 @@ public class NPCEntity : ChaosEntity, iNavagatable
         GetComponents<Joint2D>()[0].connectedBody = null;
     }
 
-    public void TakeDamage(int hitPoints)
+    public void TakeDamage(ChaosInteraction chaosInteraction)
     {
-        _particalSystem.Emit(hitPoints);
+        _particalSystem.Emit((int)chaosInteraction.Amount);
         int health = (int) GetStatVal(ChaosEntityStatType.Health);
-        SetStatVal(ChaosEntityStatType.Health, health - hitPoints);
+        SetStatVal(ChaosEntityStatType.Health, health - (int)chaosInteraction.Amount);
+        AddInteraction(chaosInteraction);
+    }
+
+    public void AddInteraction(ChaosInteraction chaosInteraction)
+    {
+        _interactions.Add(chaosInteraction);
     }
 
 
@@ -169,10 +182,10 @@ public class NPCEntity : ChaosEntity, iNavagatable
         return chaosTeam;
     }
 
-    public void SetPrimaryHeldItem(ChoasItem choasItem)
+    public void SetPrimaryHeldItem(ChaosItem chaosItem)
     {
-        primaryHeldItem = choasItem;
-        choasItem.SetHoldingEntity(this);
+        primaryHeldItem = chaosItem;
+        chaosItem.SetHoldingEntity(this);
         handJoint.connectedBody = primaryHeldItem.GetComponent<Rigidbody2D>();
 
         handJoint.enabled = true;
@@ -185,9 +198,10 @@ public class NPCEntity : ChaosEntity, iNavagatable
         NPCEntityHead.gameObject.SetActive(false);
     }
 
-    public void TakeHeal(int hitPoints)
+    public void TakeHeal(ChaosInteraction chaosInteraction)
     {
-      
+
+        int hitPoints = (int)chaosInteraction.Amount;
         int health = (int) GetStatVal(ChaosEntityStatType.Health);
         int newHealth = health + hitPoints;
         if (newHealth > GetStatVal(ChaosEntityStatType.MaxHealth))
@@ -195,16 +209,24 @@ public class NPCEntity : ChaosEntity, iNavagatable
             newHealth = (int)GetStatVal(ChaosEntityStatType.MaxHealth);
         }
         SetStatVal(ChaosEntityStatType.Health, newHealth);
+        AddInteraction(chaosInteraction);
     }
 
-    public void TakeStun(int stunDuration)
+    public void TakeStun(ChaosInteraction chaosInteraction)
     {
-       
-        SetStatVal(ChaosEntityStatType.StunDuration, stunDuration);
+       float stunDuration = chaosInteraction.Amount;
+       SetStatVal(ChaosEntityStatType.StunDuration, stunDuration);
+       AddInteraction(chaosInteraction);
 
     }
     public override string GetDebugString()
     {
         return "Action: " + currAction.GetDebugString();
+    }
+
+    public bool IsStunned()
+    {
+        float stunDuration = GetStatVal(ChaosEntityStatType.StunDuration);
+        return stunDuration > 0;
     }
 }

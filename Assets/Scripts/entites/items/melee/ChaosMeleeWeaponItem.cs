@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class ChaosMeleeWeaponItem : ChoasItem
+public class ChaosMeleeWeaponItem : ChaosItem
 {
     public ChaosMeleeWeaponItem() : base()
     {
-        InitStat(ChaosEntityStatType.Attack, 5);
+        InitStat(ChaosEntityStatType.Attack, 20);
         InitStat(ChaosEntityStatType.Range, 3);
         InitStat(ChaosEntityStatType.Windup, 1);
         InitStat(ChaosEntityStatType.Cooldown, 2);
@@ -41,8 +41,14 @@ public class ChaosMeleeWeaponItem : ChoasItem
         {
             target.GetComponent<Rigidbody2D>().velocity =
                 (target.transform.position - HeldByNpcEntity.transform.position) * -2;
+            ChaosInteraction chaosInteraction = new ChaosInteraction(
+                ChaosInteractionType.MeeleAttack,
+                (int) GetStatVal(ChaosEntityStatType.Attack),
+                HeldByNpcEntity,
+                target
+            );
             ((NPCEntity) target).TakeDamage(
-                (int) GetStatVal(ChaosEntityStatType.Attack)
+                chaosInteraction
             );
         }
     }

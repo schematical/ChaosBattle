@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-    public class ChaosHealingItem: ChoasItem
+    public class ChaosHealingItem: ChaosItem
     {
         private ParticleSystem _particalSystem;
 
@@ -10,7 +10,7 @@
             InitStat(ChaosEntityStatType.HealthRecovered, 15);
             InitStat(ChaosEntityStatType.Range, 2);
             InitStat(ChaosEntityStatType.Windup, 1);
-            InitStat(ChaosEntityStatType.Cooldown, 2);
+            InitStat(ChaosEntityStatType.Cooldown, 7);
         }
 
         public virtual void Start()
@@ -47,9 +47,14 @@
                 ParticleSystem.MainModule main = _particalSystem.main;
                 main.startColor = Color.green;
                 _particalSystem.Emit((int)GetStatVal(ChaosEntityStatType.HealthRecovered));
-                
+                ChaosInteraction chaosInteraction = new ChaosInteraction(
+                    ChaosInteractionType.Heal,
+                    (int) GetStatVal(ChaosEntityStatType.HealthRecovered),
+                    HeldByNpcEntity,
+                    target
+                );
                 ((NPCEntity) target).TakeHeal(
-                    (int) GetStatVal(ChaosEntityStatType.HealthRecovered)
+                    chaosInteraction
                 );
             }
         }

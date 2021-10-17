@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 
-public class ChoasItem: ChaosEntity
+public class ChaosItem: ChaosEntity
 {
     private NPCEntity heldByNPCEntity;
 

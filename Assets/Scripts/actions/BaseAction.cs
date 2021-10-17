@@ -9,6 +9,7 @@ public class ActionPhase {
 
     public static ActionPhase Initializing = new ActionPhase("Initializing");
     public static ActionPhase Finished = new ActionPhase("Finished");
+    public static ActionPhase Timedout = new ActionPhase("Timedout");
 }
 public abstract class BaseAction
 {
@@ -26,13 +27,16 @@ public abstract class BaseAction
         activeTime += Time.deltaTime;
         if (activeTime > timeout)
         {
-            TransitionPhase(ActionPhase.Finished);
+            TransitionPhase(ActionPhase.Timedout);
         }
     }
 
     public virtual Boolean isFinished()
     {
-        return _phase.Equals(ActionPhase.Finished);
+        return (
+            _phase.Equals(ActionPhase.Finished) ||
+            _phase.Equals(ActionPhase.Timedout)
+        );
     }
     protected virtual void TransitionPhase(ActionPhase actionPhase)
     {

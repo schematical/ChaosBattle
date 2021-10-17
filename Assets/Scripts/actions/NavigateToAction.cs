@@ -57,6 +57,15 @@ public class NavigateToAction : BaseAction
             {
                 EndNavigation();
             }
+
+            if (
+                target &&
+                target is ChaosItem &&
+                ((ChaosItem) target).HeldByNpcEntity
+            )
+            {
+                EndNavigation();
+            }
         }
     }
 

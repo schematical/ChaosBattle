@@ -57,8 +57,16 @@ public class BasicBrainV1 : BrainBase
                 }
                 else
                 {
+                  
+
                     if (testNPCEntity.GetTeam().Equals(NpcEntity.GetTeam()))
                     {
+                        return false;
+                    }
+                    if (
+                        NpcEntity.primaryHeldItem is ChaosShieldItem && 
+                        testNPCEntity.IsStunned()
+                    ){
                         return false;
                     }
                 }
@@ -75,9 +83,9 @@ public class BasicBrainV1 : BrainBase
             NpcEntity.SetCurrentAction(baseAction);
             return;
         }
-        ChoasItem nearestAvailableItem = (ChoasItem)GameManager.instance.level.FindClosestEntity(NpcEntity.transform.position, (ChaosEntity chaosEntity) =>
+        ChaosItem nearestAvailableItem = (ChaosItem)GameManager.instance.level.FindClosestEntity(NpcEntity.transform.position, (ChaosEntity chaosEntity) =>
         {
-            ChoasItem testItem = chaosEntity.GetComponent<ChoasItem>();
+            ChaosItem testItem = chaosEntity.GetComponent<ChaosItem>();
             if (!testItem)
             {
                 return false;
