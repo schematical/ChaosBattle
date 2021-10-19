@@ -51,11 +51,12 @@
                     ChaosInteractionType.Stun,
                     (int) GetStatVal(ChaosEntityStatType.StunDuration),
                     HeldByNpcEntity,
-                    target
+                    ((NPCEntity)target)
                 );
                 ((NPCEntity) target).TakeStun(
                     chaosInteraction
                 );
+                HeldByNpcEntity.AddInteraction(chaosInteraction);
             }
         }
     }

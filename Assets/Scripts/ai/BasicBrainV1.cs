@@ -76,6 +76,10 @@ public class BasicBrainV1 : BrainBase
            
             if (!closestEnemy)
             {
+                Vector3Int targetVec2 = GameManager.instance.level.GetRandomFloorTileVec();
+                NavigateToAction wonderAction2 = new NavigateToAction(NpcEntity);
+                wonderAction2.SetTargetVec(targetVec2);
+                NpcEntity.SetCurrentAction(wonderAction2);
                 return;
             }
             UsePrimaryItemAction baseAction = new UsePrimaryItemAction(NpcEntity);

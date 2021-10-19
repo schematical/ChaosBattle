@@ -20,6 +20,9 @@ public class NPCEntity : ChaosEntity, iNavagatable
     private ParticleSystem _particalSystem;
     private List<BaseAction> actionHistory = new List<BaseAction>();
     private List<ChaosInteraction> _interactions = new List<ChaosInteraction>();
+    private Animator _animatior;
+    public SpriteRenderer HeadSpriteRenderer { get; set; }
+    public SpriteRenderer BodySpriteRenderer { get; set; }
     NPCEntity() : base()
     {
         InitStat(ChaosEntityStatType.MaxHealth, 100);
@@ -35,22 +38,26 @@ public class NPCEntity : ChaosEntity, iNavagatable
         PathFinder = new PathFinder(this, null);
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _particalSystem = GetComponent<ParticleSystem>();
-        
-   
+        _animatior = GetComponent<Animator>();
+
+
     }
 
     public void Init()
     {
-        SetStatVal(ChaosEntityStatType.Health, 100);
+        
+        SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.MaxHealth));
+        SetStatVal(ChaosEntityStatType.StunDuration, 0);
         isAlive = true;
         brain = new BasicBrainV1(this);
         NPCEntityHead = GameManager.instance.PrefabManager.Get("NPCEntityHead").GetComponent<NPCEntityHead>();
         NPCEntityHead.transform.localPosition = new Vector3(
             transform.localPosition.x,
             transform.localPosition.y + .5f,
-            0
+            -1
         );
         NPCEntityHead.SetNPCEntity(this);
+        HeadSpriteRenderer = NPCEntityHead.GetComponent<SpriteRenderer>();
         handJoint = GetComponents<HingeJoint2D>()[1];
         handJoint.enabled = false;
         
@@ -59,7 +66,26 @@ public class NPCEntity : ChaosEntity, iNavagatable
         primaryHeldItem = null;
         currAction = null;
         actionHistory.Clear();
+        
+        BodySpriteRenderer = GetComponent<SpriteRenderer>();
+
+        Color c = HeadSpriteRenderer.color;
+        c.a = 1;
+        HeadSpriteRenderer.color = c;
+        SpriteRenderer bodySpriteRenderer = GetComponent<SpriteRenderer>();
+        c = bodySpriteRenderer.color;
+        c.a = 1;
+        bodySpriteRenderer.color = c;
+        GetComponent<PolygonCollider2D>().isTrigger = false;
+        // NPCEntityHead.GetComponent<BoxCollider2D>().isTrigger = false;
+        if (_animatior)
+        {
+            _animatior.enabled = true;
+        }
     }
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -77,26 +103,31 @@ public class NPCEntity : ChaosEntity, iNavagatable
         }
 
         float redPct = 1 - GetStatVal(ChaosEntityStatType.Health) / 100;
-        GetComponent<SpriteRenderer>().color = new Color(
-            bodyColor.r + redPct,
-            bodyColor.g * (1 - redPct),
-            bodyColor.b * (1 - redPct)
+        HeadSpriteRenderer.color = new Color(
+            1, //bodyColor.r + redPct,
+            1 - redPct, //bodyColor.g * (1 - redPct),
+            1 - redPct// bodyColor.b * (1 - redPct)
         );
 
         
         float stunDuration = GetStatVal(ChaosEntityStatType.StunDuration);
         if (IsStunned())
         {
-            SetStatVal(ChaosEntityStatType.StunDuration, stunDuration - Time.deltaTime);
-            _rigidbody2D.rotation = 90;
-            return;
+            float newStunDuration = stunDuration - Time.deltaTime;
+            if (newStunDuration > 0)
+            {
+                SetStatVal(ChaosEntityStatType.StunDuration, stunDuration - Time.deltaTime);
+                _rigidbody2D.rotation = 90;
+                return;
+            } else
+            {
+                _animatior.enabled = true;
+                _rigidbody2D.rotation = 0;
+             
+            }
+           
         }
 
-        if (stunDuration <= 0)
-        {
-            _rigidbody2D.rotation = 0;
-            // SetStatVal(ChaosEntityStatType.StunDuration, 0);
-        }
         brain.tick();
         currAction?.tick();
         PathFinder.tickNavigate();
@@ -138,6 +169,18 @@ public class NPCEntity : ChaosEntity, iNavagatable
 
         isAlive = false;
         GetComponents<Joint2D>()[0].connectedBody = null;
+        Color c = HeadSpriteRenderer.color;
+        c.a = .25f;
+        HeadSpriteRenderer.color = c;
+        SpriteRenderer bodySpriteRenderer = GetComponent<SpriteRenderer>();
+        c = bodySpriteRenderer.color;
+        c.a = .25f;
+        bodySpriteRenderer.color = c;
+        GetComponent<PolygonCollider2D>().isTrigger = true;
+        // NPCEntityHead.GetComponent<BoxCollider2D>().isTrigger = true;
+        
+        SetPrimaryHeldItem(null);
+        _animatior.enabled = false;
     }
 
     public void TakeDamage(ChaosInteraction chaosInteraction)
@@ -164,7 +207,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
 
     public float speed
     {
-        get { return 1f; }
+        get { return 2f; }
     }
 
     public void SetTeam(ChaosTeam chaosTeam)
@@ -175,6 +218,8 @@ public class NPCEntity : ChaosEntity, iNavagatable
             // NPCEntityHead.GetComponent<SpriteRenderer>().color = Color.blue;
             bodyColor = Color.blue;
         }
+
+        BodySpriteRenderer.color = bodyColor;
     }
 
     public ChaosTeam GetTeam()
@@ -183,12 +228,28 @@ public class NPCEntity : ChaosEntity, iNavagatable
     }
 
     public void SetPrimaryHeldItem(ChaosItem chaosItem)
-    {
-        primaryHeldItem = chaosItem;
-        chaosItem.SetHoldingEntity(this);
-        handJoint.connectedBody = primaryHeldItem.GetComponent<Rigidbody2D>();
+    {  
+  
+        if (chaosItem)
+        {
+          
+            chaosItem.SetHoldingEntity(this);
+            handJoint.connectedBody = chaosItem.GetComponent<Rigidbody2D>();
 
-        handJoint.enabled = true;
+            handJoint.enabled = true;
+        }
+        else
+        {
+            if (primaryHeldItem)
+            {
+                primaryHeldItem.SetHoldingEntity(null);
+            }
+
+            handJoint.connectedBody = null;
+
+            handJoint.enabled = false;
+        }
+        primaryHeldItem = chaosItem;
     }
 
     public override void CleanUp()
@@ -217,7 +278,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
        float stunDuration = chaosInteraction.Amount;
        SetStatVal(ChaosEntityStatType.StunDuration, stunDuration);
        AddInteraction(chaosInteraction);
-
+       _animatior.enabled = false;
     }
     public override string GetDebugString()
     {
@@ -228,5 +289,10 @@ public class NPCEntity : ChaosEntity, iNavagatable
     {
         float stunDuration = GetStatVal(ChaosEntityStatType.StunDuration);
         return stunDuration > 0;
+    }
+
+    public List<ChaosInteraction> GetInteractions()
+    {
+        return _interactions;
     }
 }

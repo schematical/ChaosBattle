@@ -6,12 +6,16 @@ public class ChaosMeleeWeaponItem : ChaosItem
     {
         InitStat(ChaosEntityStatType.Attack, 20);
         InitStat(ChaosEntityStatType.Range, 3);
-        InitStat(ChaosEntityStatType.Windup, 1);
-        InitStat(ChaosEntityStatType.Cooldown, 2);
+        InitStat(ChaosEntityStatType.Windup, .5f);
+        InitStat(ChaosEntityStatType.Cooldown, 1);
     }
 
     public override void ApplyActionAnimation(ActionPhase actionPhase)
     {
+        if (GetHoldingEntity() == null)
+        {
+            return;
+        }
         JointMotor2D motor = new JointMotor2D();
         if (actionPhase.Equals(UsePrimaryItemActionPhase.Windup))
         {
@@ -45,11 +49,12 @@ public class ChaosMeleeWeaponItem : ChaosItem
                 ChaosInteractionType.MeeleAttack,
                 (int) GetStatVal(ChaosEntityStatType.Attack),
                 HeldByNpcEntity,
-                target
+                ((NPCEntity)target)
             );
             ((NPCEntity) target).TakeDamage(
                 chaosInteraction
             );
+            HeldByNpcEntity.AddInteraction(chaosInteraction);
         }
     }
 }

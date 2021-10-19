@@ -9,8 +9,8 @@
         {
             InitStat(ChaosEntityStatType.HealthRecovered, 15);
             InitStat(ChaosEntityStatType.Range, 2);
-            InitStat(ChaosEntityStatType.Windup, 1);
-            InitStat(ChaosEntityStatType.Cooldown, 7);
+            InitStat(ChaosEntityStatType.Windup, .5f);
+            InitStat(ChaosEntityStatType.Cooldown, 3);
         }
 
         public virtual void Start()
@@ -51,11 +51,12 @@
                     ChaosInteractionType.Heal,
                     (int) GetStatVal(ChaosEntityStatType.HealthRecovered),
                     HeldByNpcEntity,
-                    target
+                    ((NPCEntity)target)
                 );
                 ((NPCEntity) target).TakeHeal(
                     chaosInteraction
                 );
+                HeldByNpcEntity.AddInteraction(chaosInteraction);
             }
         }
     }

@@ -29,8 +29,12 @@ public class UsePrimaryItemAction : NavigateToAction
     public override void tick()
     {
         base.tick();
-     
 
+        if (actingNPCEntity.primaryHeldItem == null)
+        {
+            TransitionPhase(ActionPhase.Finished);
+            return;
+        }
         
         if (_phase.Equals(UsePrimaryItemActionPhase.Windup))
         {
@@ -78,10 +82,7 @@ public class UsePrimaryItemAction : NavigateToAction
        
     }
 
-    public override bool isFinished()
-    {
-        return _phase.Equals(ActionPhase.Finished);
-    }
+
     public override string GetDebugString()
     {
         string className = GetType().Name;

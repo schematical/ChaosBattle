@@ -11,11 +11,13 @@ using Random = UnityEngine.Random;
 public class ChaosLevel
 {
     public static readonly int Border = 8;
-    public static readonly Vector2 MapDimensions = new Vector2(18, 14);
+    public static readonly Vector2 MapDimensions = new Vector2(18, 12);
     public List<ChaosTeam> teams = new List<ChaosTeam>();
     public List<ChaosEntity> entities = new List<ChaosEntity>();
+    public ChaosBattleBasicScoreCounter ScoreCounter;
     public void InitLevel()
     {
+        ScoreCounter = new ChaosBattleBasicScoreCounter(this);
         teams.Add(new ChaosTeam("Team 1"));
         teams.Add(new ChaosTeam("Team 2"));
 
@@ -31,16 +33,48 @@ public class ChaosLevel
                     y < 0 ||
                     y >= MapDimensions.y
                 );
-                if (isOutsideOfBattleField) {
-                    tile = GameManager.instance.PrefabManager.GetTile("CloudTile");
+                Boolean drawWall = (
+                    (
+                        (
+                            x == -1 || 
+                            x == MapDimensions.x + 1
+                        ) && 
+                        (
+                            y >= -2 &&
+                            y <= MapDimensions.y + 2
+                        )
+                    ) ||
+                    (
+                        (
+                            x >= -1 &&
+                            x <= MapDimensions.x + 1
+                        ) &&
+                        (
+                            y == -1 ||
+                            y == -2 ||
+                            y == MapDimensions.y + 1 ||
+                            y == MapDimensions.y + 2
+                        )
+                    )
+                );
+                if (drawWall) {
+                    tile = GameManager.instance.PrefabManager.GetTile("ChainFenceTile");
                     tilemap = GameManager.instance.wallTilemap;
+                    
+                    tilemap.SetTile(
+                        new Vector3Int(x, y, -1),
+                        tile
+                    );
                 }
-                else
-                {
-                    tile = GameManager.instance.PrefabManager.GetTile("BoatTopTile");
+                
+                    tile = GameManager.instance.PrefabManager.GetTile("GrassTile");
                     tilemap = GameManager.instance.floorTilemap;
                     
-                }
+                    tilemap.SetTile(
+                        new Vector3Int(x, y, 0),
+                        tile
+                    );
+                
             
                 tilemap.SetTile(
                     new Vector3Int(x, y, 0),

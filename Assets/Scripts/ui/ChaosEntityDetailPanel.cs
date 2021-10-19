@@ -29,6 +29,12 @@ public class ChaosEntityDetailPanel : MonoBehaviour
             {
                 Text.text += chaosEntityStat.GetStatType() + ": " + chaosEntityStat.GetVal() + "  ";
             }
+
+            Text.text += "\n";
+            if (_chaosEntity is NPCEntity)
+            {
+                Text.text += "Score: " + GameManager.instance.level.ScoreCounter.GetEntityScore((NPCEntity)_chaosEntity);
+            }
         }
     }
 
