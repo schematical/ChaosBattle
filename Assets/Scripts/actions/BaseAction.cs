@@ -13,13 +13,13 @@ public class ActionPhase {
 }
 public abstract class BaseAction
 {
-    protected NPCEntity actingNPCEntity;
+    protected ChaosNPCEntity ActingChaosNpcEntity;
     protected ActionPhase _phase = ActionPhase.Initializing;
     private float activeTime = 0;
     private float timeout = 5;
-    public BaseAction(NPCEntity npcEntity)
+    public BaseAction(ChaosNPCEntity chaosNpcEntity)
     {
-        actingNPCEntity = npcEntity;
+        ActingChaosNpcEntity = chaosNpcEntity;
     }
 
     public virtual void tick()

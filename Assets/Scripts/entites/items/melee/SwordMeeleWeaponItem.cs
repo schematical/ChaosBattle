@@ -16,4 +16,8 @@ public class SwordMeeleWeaponItem : ChaosMeleeWeaponItem
     {
         
     }
+    public override string _class_name
+    {
+        get { return "SwordMeeleWeaponItem"; }
+    }
 }

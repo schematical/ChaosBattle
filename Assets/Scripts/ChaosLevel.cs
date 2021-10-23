@@ -15,6 +15,9 @@ public class ChaosLevel
     public List<ChaosTeam> teams = new List<ChaosTeam>();
     public List<ChaosEntity> entities = new List<ChaosEntity>();
     public ChaosBattleBasicScoreCounter ScoreCounter;
+    public CTBrainMaker brainMaker;
+    public IDictionary<string, NPCControllerBase> bots = new Dictionary<string, NPCControllerBase>();
+
     public void InitLevel()
     {
         ScoreCounter = new ChaosBattleBasicScoreCounter(this);
@@ -145,17 +148,17 @@ public class ChaosLevel
         );
     }
 
-    public NPCEntity SpawnNPC(int x, int y, ChaosTeam team)
+    public ChaosNPCEntity SpawnNPC(int x, int y, ChaosTeam team)
     {
-        NPCEntity npcEntity = GameManager.instance.PrefabManager.Get("NPCEntity")
-            .GetComponent<NPCEntity>();
+        ChaosNPCEntity chaosNpcEntity = GameManager.instance.PrefabManager.Get("NPCEntity")
+            .GetComponent<ChaosNPCEntity>();
                      
-        npcEntity.transform.localPosition = new Vector3(x, y, 0);
-        npcEntity.Init();
-        npcEntity.SetTeam(team);
+        chaosNpcEntity.transform.localPosition = new Vector3(x, y, 0);
+        chaosNpcEntity.Init();
+        chaosNpcEntity.SetTeam(team);
         //boatObject.SetBoatData(boatData);
-        entities.Add(npcEntity);
-        return npcEntity;
+        entities.Add(chaosNpcEntity);
+        return chaosNpcEntity;
     }
 
     public void Tick()
@@ -169,19 +172,19 @@ public class ChaosLevel
         
         GameManager.instance.level.entities.ForEach((entity =>
         {
-            NPCEntity testNPCEntity = entity.GetComponent<NPCEntity>();
-            if (!testNPCEntity)
+            ChaosNPCEntity testChaosNpcEntity = entity.GetComponent<ChaosNPCEntity>();
+            if (!testChaosNpcEntity)
             {
                 return;
             }
 
-            if (!testNPCEntity.isAlive)
+            if (!testChaosNpcEntity.IsAlive())
             {
                 return;
             }
 
-            int count = teamCounts[testNPCEntity.GetTeam()];
-            teamCounts[testNPCEntity.GetTeam()] = count + 1;
+            int count = teamCounts[testChaosNpcEntity.GetTeam()];
+            teamCounts[testChaosNpcEntity.GetTeam()] = count + 1;
         }));
         bool triggerReset = false;
         teams.ForEach((team =>
@@ -241,5 +244,121 @@ public class ChaosLevel
             }
         })); 
         return closestEntity;
+    }
+      public NPCControllerBase InitNewBot(NPCNNetController parentBotController){
+        return InitNewBot(parentBotController, true);
+    }
+
+    public NPCControllerBase InitNewBot(NPCNNetController parentBotController, bool spawnAsParent){
+        
+
+        NNet nNet = null;
+
+        NPCNNetController npcController = null;
+        
+        if(!spawnAsParent){
+            npcController = parentBotController;
+
+            if(npcController.ChaosNpcEntity != null){
+                npcController.ChaosNpcEntity.gameObject.SetActive(false);
+                //Destroy(botController.entity);
+                //botController.entity = null;
+            }
+            if (!bots.ContainsKey(npcController.id))
+            {
+                bots.Add(npcController.id, npcController);
+            }
+
+
+            GameManager.instance.gameMode.OnInitNPC(npcController);
+            return npcController;
+           
+        }
+        BrainMaker.Action brainMakerAction = null;
+        if(parentBotController == null){
+
+            int generation = 0;
+            if(nNet != null){
+              
+                generation = nNet.generation;
+            }else{
+                nNet = new NNet();
+            }
+            string _id = "bot_" + generation + "_" + bots.Count;
+            npcController = new NPCNNetController();
+            npcController.Init(_id);
+            brainMakerAction = new BrainMaker.Action();
+            brainMakerAction.ParentNpcnNetController = parentBotController;
+            brainMakerAction.resultNNet = nNet;
+            brainMakerAction.mutationRateData = GameManager.instance.trainingRoomData.brainMakerConfigData.mutationRateData;
+            brainMaker.Populate(brainMakerAction);
+
+
+            /*npcController.botBiology = GameManager.instance.trainingRoomData.botBiologyData.MutateRandom();
+            npcController.botBiology.PopulateRandom();
+*/
+
+            npcController.AttachNNet(brainMakerAction.resultNNet);
+           
+        }else{
+            brainMakerAction = new BrainMaker.Action();
+            NNetData nNetData = parentBotController.nNet.GetSerializer();
+
+            string _id = "bot_" + (parentBotController.nNet.generation + 1) + "_" + bots.Count;
+            npcController = new NPCNNetController();
+            npcController.Init(_id);
+            brainMakerAction.resultNNet = brainMaker.ParseNNetData(nNetData);
+            brainMakerAction.resultNNet.generation += 1;
+            brainMakerAction.mutationRateData = parentBotController.speciesObject.brainMakerMutationRateData;
+            /* if(brainMakerAction.resultNNet.generation != (parentBotController.nNet.generation + 1)){
+                Debug.LogError("1 - BotGeneration Missmatch");
+            } */
+          
+            brainMakerAction.ParentNpcnNetController = parentBotController;
+           
+            brainMaker.Populate(brainMakerAction);
+            brainMakerAction.resultNNet.generation = parentBotController.nNet.generation + 1;
+            /* if (brainMakerAction.resultNNet.generation != (parentBotController.nNet.generation + 1))
+            {
+               Debug.LogError("2 - BotGeneration Missmatch");
+            } */
+            npcController.botBiology = parentBotController.botBiology.MutateRandom();
+
+            npcController.AttachNNet(brainMakerAction.resultNNet);
+
+           
+            //TODO: Add this to the original breed behavior
+            BreedAction.CompareResult compareResult = npcController.CompareWithBot(parentBotController);
+            brainMakerAction.parentNNetSimilarityScore = compareResult.score;
+            if (compareResult.score.Equals(0))
+            {
+                brainMakerAction.flagAsFailedToEvolve = true;
+               
+                brainMaker.MutateNEATNNet(brainMakerAction);
+                npcController.AttachNNet(brainMakerAction.resultNNet);
+                compareResult = npcController.CompareWithBot(parentBotController);
+                brainMakerAction.parentNNetSimilarityScore = compareResult.score;
+            }
+
+
+          
+
+
+        }
+
+        bots.Add(npcController.id, npcController);
+     
+
+        
+        GameManager.instance.gameMode.OnInitNPC(npcController);
+        if(
+            parentBotController != null &&
+            npcController.nNet.generation != (parentBotController.nNet.generation + 1)
+        ){
+            Debug.LogError("3 - BotGeneration Missmatch: " + npcController.nNet.generation + " != " + (parentBotController.nNet.generation + 1));
+        }
+        npcController.brainMakerAction = brainMakerAction;
+        brainMakerAction = null;
+        return npcController;
     }
 }

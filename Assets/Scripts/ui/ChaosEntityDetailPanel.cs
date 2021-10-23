@@ -31,9 +31,9 @@ public class ChaosEntityDetailPanel : MonoBehaviour
             }
 
             Text.text += "\n";
-            if (_chaosEntity is NPCEntity)
+            if (_chaosEntity is ChaosNPCEntity)
             {
-                Text.text += "Score: " + GameManager.instance.level.ScoreCounter.GetEntityScore((NPCEntity)_chaosEntity);
+                Text.text += "Score: " + GameManager.instance.level.ScoreCounter.GetEntityScore((ChaosNPCEntity)_chaosEntity);
             }
         }
     }

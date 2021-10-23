@@ -12,7 +12,10 @@
             InitStat(ChaosEntityStatType.Windup, .5f);
             InitStat(ChaosEntityStatType.Cooldown, 3);
         }
-
+        public override string _class_name
+        {
+            get { return "ChaosHealingItem"; }
+        }
         public virtual void Start()
         {
             _particalSystem = GetComponent<ParticleSystem>();
@@ -42,7 +45,7 @@
         }
         public override void Use(ChaosEntity target)
         {
-            if (target is NPCEntity)
+            if (target is ChaosNPCEntity)
             {
                 ParticleSystem.MainModule main = _particalSystem.main;
                 main.startColor = Color.green;
@@ -50,13 +53,13 @@
                 ChaosInteraction chaosInteraction = new ChaosInteraction(
                     ChaosInteractionType.Heal,
                     (int) GetStatVal(ChaosEntityStatType.HealthRecovered),
-                    HeldByNpcEntity,
-                    ((NPCEntity)target)
+                    HeldByChaosNpcEntity,
+                    ((ChaosNPCEntity)target)
                 );
-                ((NPCEntity) target).TakeHeal(
+                ((ChaosNPCEntity) target).TakeHeal(
                     chaosInteraction
                 );
-                HeldByNpcEntity.AddInteraction(chaosInteraction);
+                HeldByChaosNpcEntity.AddInteraction(chaosInteraction);
             }
         }
     }

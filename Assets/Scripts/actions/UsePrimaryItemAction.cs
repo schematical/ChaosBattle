@@ -18,11 +18,11 @@ public class UsePrimaryItemAction : NavigateToAction
     private float windupRemainingDuration;
     private float cooldownRemainingDuration;
 
-    public UsePrimaryItemAction(NPCEntity npcEntity) : base(npcEntity)
+    public UsePrimaryItemAction(ChaosNPCEntity chaosNpcEntity) : base(chaosNpcEntity)
     {
-        windupRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
-        cooldownRemainingDuration = actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Cooldown);
-        SetRangeGoal(actingNPCEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range));
+        windupRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
+        cooldownRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Cooldown);
+        SetRangeGoal(ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range));
     }
 
 
@@ -30,7 +30,7 @@ public class UsePrimaryItemAction : NavigateToAction
     {
         base.tick();
 
-        if (actingNPCEntity.primaryHeldItem == null)
+        if (ActingChaosNpcEntity.primaryHeldItem == null)
         {
             TransitionPhase(ActionPhase.Finished);
             return;
@@ -40,7 +40,7 @@ public class UsePrimaryItemAction : NavigateToAction
         {
             // Debug.Log("Windup: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
             windupRemainingDuration -= Time.deltaTime;
-            actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
+            ActingChaosNpcEntity.primaryHeldItem.ApplyActionAnimation(_phase);
             if (windupRemainingDuration <= 0)
             {
                 TransitionPhase(UsePrimaryItemActionPhase.Acting);
@@ -49,7 +49,7 @@ public class UsePrimaryItemAction : NavigateToAction
         {
             // Debug.Log("Cooldown: " + (actingNPCEntity.transform.position - Target.transform.position).sqrMagnitude);
             cooldownRemainingDuration -= Time.deltaTime;
-            actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
+            ActingChaosNpcEntity.primaryHeldItem.ApplyActionAnimation(_phase);
             if (cooldownRemainingDuration <= 0)
             {
                 TransitionPhase(ActionPhase.Finished);
@@ -76,8 +76,8 @@ public class UsePrimaryItemAction : NavigateToAction
 
     private void fire()
     {
-        actingNPCEntity.primaryHeldItem.ApplyActionAnimation(_phase);
-        actingNPCEntity.primaryHeldItem.Use(Target);
+        ActingChaosNpcEntity.primaryHeldItem.ApplyActionAnimation(_phase);
+        ActingChaosNpcEntity.primaryHeldItem.Use(Target);
         TransitionPhase(UsePrimaryItemActionPhase.Cooldown);
        
     }
@@ -86,6 +86,6 @@ public class UsePrimaryItemAction : NavigateToAction
     public override string GetDebugString()
     {
         string className = GetType().Name;
-        return className + "(Phase: " + _phase.Name + "," + "Item: " + actingNPCEntity.primaryHeldItem.GetType().FullName + ")";
+        return className + "(Phase: " + _phase.Name + "," + "Item: " + ActingChaosNpcEntity.primaryHeldItem.GetType().FullName + ")";
     }
 }

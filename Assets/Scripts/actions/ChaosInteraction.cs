@@ -3,10 +3,10 @@ public class ChaosInteraction
 {
     private ChaosInteractionType _interactionType;
     private float _amount;
-    private NPCEntity _sender;
-    private NPCEntity _reciver;
+    private ChaosNPCEntity _sender;
+    private ChaosNPCEntity _reciver;
 
-    public ChaosInteraction(ChaosInteractionType interactionType, float amount, NPCEntity sender, NPCEntity reciver)
+    public ChaosInteraction(ChaosInteractionType interactionType, float amount, ChaosNPCEntity sender, ChaosNPCEntity reciver)
     {
         _interactionType = interactionType;
         this._amount = amount;
@@ -15,8 +15,8 @@ public class ChaosInteraction
     }
     public float Amount => _amount;
     public ChaosInteractionType InteractionType => _interactionType;
-    public NPCEntity Sender => _sender;
-    public NPCEntity Reciver => _reciver;
+    public ChaosNPCEntity Sender => _sender;
+    public ChaosNPCEntity Reciver => _reciver;
 }
 
 public enum ChaosInteractionType

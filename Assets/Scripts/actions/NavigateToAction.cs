@@ -16,7 +16,7 @@ public class NavigateToAction : BaseAction
     private bool hasArrived = false;
     private float rangeGoal = 5;
 
-    public NavigateToAction(NPCEntity npcEntity) : base(npcEntity)
+    public NavigateToAction(ChaosNPCEntity chaosNpcEntity) : base(chaosNpcEntity)
     {
     }
 
@@ -25,12 +25,12 @@ public class NavigateToAction : BaseAction
     public void SetTarget(ChaosEntity target)
     {
         this.target = target;
-        actingNPCEntity.PathFinder.navigateTo(this.target.gameObject);
+        ActingChaosNpcEntity.PathFinder.navigateTo(this.target.gameObject);
     }
     public void SetTargetVec(Vector3 vector3)
     {
         this.targetVec = vector3;
-        actingNPCEntity.PathFinder.navigateToVec(this.targetVec);
+        ActingChaosNpcEntity.PathFinder.navigateToVec(this.targetVec);
     }
 
     public void SetRangeGoal(float rangeGoal)
@@ -51,7 +51,7 @@ public class NavigateToAction : BaseAction
                 targetVec = target.transform.position;
             }
 
-            float dist = (targetVec - actingNPCEntity.transform.position).sqrMagnitude;
+            float dist = (targetVec - ActingChaosNpcEntity.transform.position).sqrMagnitude;
 
             if (dist < rangeGoal)
             {
@@ -61,7 +61,7 @@ public class NavigateToAction : BaseAction
             if (
                 target &&
                 target is ChaosItem &&
-                ((ChaosItem) target).HeldByNpcEntity
+                ((ChaosItem) target).HeldByChaosNpcEntity
             )
             {
                 EndNavigation();

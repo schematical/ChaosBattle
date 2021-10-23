@@ -7,5 +7,5 @@ public abstract class ChaosScoreCounterBase
         _chaosLevel = chaosLevel;
     }
 
-    public abstract int GetEntityScore(NPCEntity npcEntity);
+    public abstract int GetEntityScore(ChaosNPCEntity chaosNpcEntity);
 }

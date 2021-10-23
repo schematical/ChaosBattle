@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ChaosEntity : MonoBehaviour, IPointerClickHandler 
+public abstract class ChaosEntity : CTBaseObservableGameObject, IPointerClickHandler 
 {
     public Dictionary<ChaosEntityStatType, ChaosEntityStat> stats =
         new Dictionary<ChaosEntityStatType, ChaosEntityStat>();
 
-    private NPCEntity heldByNPCEntity;
+    private ChaosNPCEntity _heldByChaosNpcEntity;
 
     protected ChaosEntityStat InitStat(ChaosEntityStatType type, float val)
     {
@@ -54,4 +54,5 @@ public class ChaosEntity : MonoBehaviour, IPointerClickHandler
     {
         return "";
     }
+
 }

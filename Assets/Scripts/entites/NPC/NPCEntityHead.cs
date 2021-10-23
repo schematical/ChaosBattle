@@ -4,13 +4,13 @@ using UnityEngine.EventSystems;
 
 public class NPCEntityHead: MonoBehaviour, IPointerClickHandler
 {
-    private NPCEntity _npcEntity;
-    public void SetNPCEntity(NPCEntity npcEntity)
+    private ChaosNPCEntity _chaosNpcEntity;
+    public void SetNPCEntity(ChaosNPCEntity chaosNpcEntity)
     {
-        _npcEntity = npcEntity;
+        _chaosNpcEntity = chaosNpcEntity;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameManager.instance.menuManager.chaosEntityDetailPanel.Show(_npcEntity);
+        GameManager.instance.menuManager.chaosEntityDetailPanel.Show(_chaosNpcEntity);
     }
 }

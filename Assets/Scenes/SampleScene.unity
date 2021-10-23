@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -307,6 +308,7 @@ MonoBehaviour:
   wallTilemap: {fileID: 356350885}
   floorTile: {fileID: 11400000, guid: 08002d404144b40bf842342dda8fa3e4, type: 2}
   menuManager: {fileID: 1995422659}
+  cameraManager: {fileID: 519420036}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -417,6 +419,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db40a198c80d2d45ab71d4b6b4bfe66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followMode: MAIN
+  paningEnabled: 1
+  zoomingEnabled: 1
+  camera: {fileID: 0}
+  zoomSize: 5
+  vector: {x: 0, y: 0}
+  onZoomChange:
+    m_PersistentCalls:
+      m_Calls: []
+  nNetCamera: {fileID: 0}
 --- !u!1 &886824064
 GameObject:
   m_ObjectHideFlags: 0

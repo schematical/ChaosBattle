@@ -17,4 +17,8 @@ public class TireShieldItem : ChaosShieldItem
     {
         
     }
+    public override string _class_name
+    {
+        get { return "TireShieldItem"; }
+    }
 }

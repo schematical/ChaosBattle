@@ -3,43 +3,43 @@ using System;
 using UnityEngine;
 
 
-public class ChaosItem: ChaosEntity
+public abstract class ChaosItem: ChaosEntity
 {
-    private NPCEntity heldByNPCEntity;
+    private ChaosNPCEntity _heldByChaosNpcEntity;
 
-    public NPCEntity HeldByNpcEntity => heldByNPCEntity;
+    public ChaosNPCEntity HeldByChaosNpcEntity => _heldByChaosNpcEntity;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        NPCEntity npcEntity = other.collider.GetComponent<NPCEntity>();
-        if (npcEntity != null)
+        ChaosNPCEntity chaosNpcEntity = other.collider.GetComponent<ChaosNPCEntity>();
+        if (chaosNpcEntity != null)
         {
-            OnCollisionEnterNPCEntity(npcEntity);
+            OnCollisionEnterNPCEntity(chaosNpcEntity);
         }
     
     }
 
-    private void OnCollisionEnterNPCEntity(NPCEntity npcEntity)
+    private void OnCollisionEnterNPCEntity(ChaosNPCEntity chaosNpcEntity)
     {
         if (IsCurrentlyHeld())
         {
             return; // We are alreadying being held
         }
-        if (npcEntity.primaryHeldItem)
+        if (chaosNpcEntity.primaryHeldItem)
         {
             return; // They are already holding something.
         }
-        npcEntity.SetPrimaryHeldItem(this);
+        chaosNpcEntity.SetPrimaryHeldItem(this);
     }
 
     public bool IsCurrentlyHeld()
     {
-        return !!heldByNPCEntity;
+        return !!_heldByChaosNpcEntity;
     }
 
     public void Init()
     {
-        heldByNPCEntity = null;
+        _heldByChaosNpcEntity = null;
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -49,14 +49,14 @@ public class ChaosItem: ChaosEntity
   
     }
 
-    public void SetHoldingEntity(NPCEntity npcEntity)
+    public void SetHoldingEntity(ChaosNPCEntity chaosNpcEntity)
     {
-        heldByNPCEntity = npcEntity;
+        _heldByChaosNpcEntity = chaosNpcEntity;
     }
 
-    public NPCEntity GetHoldingEntity()
+    public ChaosNPCEntity GetHoldingEntity()
     {
-        return heldByNPCEntity;
+        return _heldByChaosNpcEntity;
     }
 
     public virtual void ApplyActionAnimation(ActionPhase actionPhase)

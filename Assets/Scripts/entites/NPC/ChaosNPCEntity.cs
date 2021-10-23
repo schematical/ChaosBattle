@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using services;
 using UnityEngine;
 
-public class NPCEntity : ChaosEntity, iNavagatable
+public class ChaosNPCEntity : ChaosEntity, iNavagatable
 {
+    public string id;
     private NPCEntityHead NPCEntityHead;
     private Rigidbody2D _rigidbody2D;
     public PathFinder PathFinder;
     private Vector2Int lastVector2Int;
     public ChaosTeam chaosTeam;
     public ChaosItem primaryHeldItem;
-    public bool isAlive = true;
+    private bool _isAlive = true;
     public Color bodyColor = Color.green;
     public HingeJoint2D handJoint;
-    private BrainBase brain;
+    private NPCControllerBase _npcController;
     private BaseAction currAction = null;
     private ParticleSystem _particalSystem;
     private List<BaseAction> actionHistory = new List<BaseAction>();
@@ -23,7 +24,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
     private Animator _animatior;
     public SpriteRenderer HeadSpriteRenderer { get; set; }
     public SpriteRenderer BodySpriteRenderer { get; set; }
-    NPCEntity() : base()
+    ChaosNPCEntity() : base()
     {
         InitStat(ChaosEntityStatType.MaxHealth, 100);
         InitStat(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.MaxHealth));
@@ -48,8 +49,8 @@ public class NPCEntity : ChaosEntity, iNavagatable
         
         SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.MaxHealth));
         SetStatVal(ChaosEntityStatType.StunDuration, 0);
-        isAlive = true;
-        brain = new BasicBrainV1(this);
+        _isAlive = true;
+        _npcController = new BasicNpcControllerV1(this);
         NPCEntityHead = GameManager.instance.PrefabManager.Get("NPCEntityHead").GetComponent<NPCEntityHead>();
         NPCEntityHead.transform.localPosition = new Vector3(
             transform.localPosition.x,
@@ -90,13 +91,13 @@ public class NPCEntity : ChaosEntity, iNavagatable
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive)
+        if (!_isAlive)
         {
             return;
         }
 
         if (
-            isAlive &&
+            _isAlive &&
             GetStatVal(ChaosEntityStatType.Health) <= 0)
         {
             MarkDead();
@@ -128,7 +129,7 @@ public class NPCEntity : ChaosEntity, iNavagatable
            
         }
 
-        brain.tick();
+        _npcController.tick();
         currAction?.tick();
         PathFinder.tickNavigate();
         /*if (primaryHeldItem)
@@ -144,6 +145,10 @@ public class NPCEntity : ChaosEntity, iNavagatable
         // SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.Health) - 1);
     }
 
+    public bool IsAlive()
+    {
+        return _isAlive;
+    }
     public BaseAction GetCurrentAction()
     {
         return currAction;
@@ -160,14 +165,32 @@ public class NPCEntity : ChaosEntity, iNavagatable
         return actionHistory;
     }
 
+    public void SleepMe()
+    {
+        SleepMe("I_DIED");
+    }
+
+    public void SleepMe(string reason)
+    {
+        
+
+        /*WorldIDiedEvent worldEvent = new WorldIDiedEvent(reason, this, null);//ScriptableObject.CreateInstance<WorldEvent>();//new WorldEvent(WorldEvent.WorldEventTypes.I_SPAWNED, entity);
+        worldEvent.Init(reason, this);
+        onDestroy.Invoke(worldEvent);
+        onWorldEvent.Invoke(worldEvent);*/
+ 
+        CleanUp();
+        return;
+
+    }
     private void MarkDead()
     {
-        if (!isAlive)
+        if (!IsAlive())
         {
             throw new Exception("Your already dead");
         }
 
-        isAlive = false;
+        _isAlive = false;
         GetComponents<Joint2D>()[0].connectedBody = null;
         Color c = HeadSpriteRenderer.color;
         c.a = .25f;
@@ -294,5 +317,15 @@ public class NPCEntity : ChaosEntity, iNavagatable
     public List<ChaosInteraction> GetInteractions()
     {
         return _interactions;
+    }
+
+    public override string _class_name
+    {
+        get { return "ChaosNPCEntity"; }
+    }
+
+    public void AttachBotController(NPCControllerBase controller)
+    {
+        _npcController = controller;
     }
 }

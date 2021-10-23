@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ChaosMeleeWeaponItem : ChaosItem
+public abstract class ChaosMeleeWeaponItem : ChaosItem
 {
     public ChaosMeleeWeaponItem() : base()
     {
@@ -41,20 +41,20 @@ public class ChaosMeleeWeaponItem : ChaosItem
 
     public override void Use(ChaosEntity target)
     {
-        if (target is NPCEntity)
+        if (target is ChaosNPCEntity)
         {
             target.GetComponent<Rigidbody2D>().velocity =
-                (target.transform.position - HeldByNpcEntity.transform.position) * -2;
+                (target.transform.position - HeldByChaosNpcEntity.transform.position) * -2;
             ChaosInteraction chaosInteraction = new ChaosInteraction(
                 ChaosInteractionType.MeeleAttack,
                 (int) GetStatVal(ChaosEntityStatType.Attack),
-                HeldByNpcEntity,
-                ((NPCEntity)target)
+                HeldByChaosNpcEntity,
+                ((ChaosNPCEntity)target)
             );
-            ((NPCEntity) target).TakeDamage(
+            ((ChaosNPCEntity) target).TakeDamage(
                 chaosInteraction
             );
-            HeldByNpcEntity.AddInteraction(chaosInteraction);
+            HeldByChaosNpcEntity.AddInteraction(chaosInteraction);
         }
     }
 }

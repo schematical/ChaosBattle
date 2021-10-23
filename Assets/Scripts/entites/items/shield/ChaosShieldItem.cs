@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-    public class ChaosShieldItem: ChaosItem
+    public abstract class ChaosShieldItem: ChaosItem
     {
         private ParticleSystem _particalSystem;
 
@@ -42,21 +42,21 @@
         }
         public override void Use(ChaosEntity target)
         {
-            if (target is NPCEntity)
+            if (target is ChaosNPCEntity)
             {
                 _particalSystem.Emit((int)GetStatVal(ChaosEntityStatType.StunDuration));
                 target.GetComponent<Rigidbody2D>().velocity =
-                    (target.transform.position - HeldByNpcEntity.transform.position) * -2;
+                    (target.transform.position - HeldByChaosNpcEntity.transform.position) * -2;
                 ChaosInteraction chaosInteraction = new ChaosInteraction(
                     ChaosInteractionType.Stun,
                     (int) GetStatVal(ChaosEntityStatType.StunDuration),
-                    HeldByNpcEntity,
-                    ((NPCEntity)target)
+                    HeldByChaosNpcEntity,
+                    ((ChaosNPCEntity)target)
                 );
-                ((NPCEntity) target).TakeStun(
+                ((ChaosNPCEntity) target).TakeStun(
                     chaosInteraction
                 );
-                HeldByNpcEntity.AddInteraction(chaosInteraction);
+                HeldByChaosNpcEntity.AddInteraction(chaosInteraction);
             }
         }
     }

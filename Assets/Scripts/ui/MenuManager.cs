@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     public TopBarPanel TopBarPanel;
 
     public BoatRenderPanel BoatRightPanel;*/
-
+    public DebugPanel debugPanel;
     public ChaosEntityDetailPanel chaosEntityDetailPanel;
     // Start is called before the first frame update
     void Start()
@@ -45,5 +45,10 @@ public class MenuManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void HideAllMenues()
+    {
+        throw new System.NotImplementedException();
     }
 }

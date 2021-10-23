@@ -2,15 +2,15 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BasicBrainV1 : BrainBase
+public class BasicNpcControllerV1 : NPCControllerBase
 {
-    public BasicBrainV1(NPCEntity npcEntity) : base(npcEntity)
+    public BasicNpcControllerV1(ChaosNPCEntity chaosNpcEntity) : base(chaosNpcEntity)
     {
     }
 
     public override void tick()
     {
-        BaseAction currAction = NpcEntity.GetCurrentAction();
+        BaseAction currAction = ChaosNpcEntity.GetCurrentAction();
         if (
             currAction == null || 
             currAction.isFinished()
@@ -21,19 +21,19 @@ public class BasicBrainV1 : BrainBase
 
     private void SelectAnAction()
     {
-        if (NpcEntity.primaryHeldItem)
+        if (ChaosNpcEntity.primaryHeldItem)
         {
             // Find someone on the other team and attack
             
             float closesEnemyDist = 99999;
-            NPCEntity closestEnemy = (NPCEntity)GameManager.instance.level.FindClosestEntity(NpcEntity.transform.position, (ChaosEntity chaosEntity) =>
+            ChaosNPCEntity closestEnemy = (ChaosNPCEntity)GameManager.instance.level.FindClosestEntity(ChaosNpcEntity.transform.position, (ChaosEntity chaosEntity) =>
             {
-                NPCEntity testNPCEntity = chaosEntity.GetComponent<NPCEntity>();
-                if (!testNPCEntity)
+                ChaosNPCEntity testChaosNpcEntity = chaosEntity.GetComponent<ChaosNPCEntity>();
+                if (!testChaosNpcEntity)
                 {
                     return false;
                 }
-                if (!testNPCEntity.isAlive)
+                if (!testChaosNpcEntity.isAlive)
                 {
                     return false;
                 }
@@ -42,15 +42,15 @@ public class BasicBrainV1 : BrainBase
                 {
                     return false;
                 }*/
-                if (NpcEntity.primaryHeldItem is ChaosHealingItem)
+                if (ChaosNpcEntity.primaryHeldItem is ChaosHealingItem)
                 {
-                    if (!testNPCEntity.GetTeam().Equals(NpcEntity.GetTeam()))
+                    if (!testChaosNpcEntity.GetTeam().Equals(ChaosNpcEntity.GetTeam()))
                     {
                         return false;
                     }
                     
-                    if (testNPCEntity.GetStatVal(ChaosEntityStatType.Health) >=
-                        testNPCEntity.GetStatVal(ChaosEntityStatType.MaxHealth))
+                    if (testChaosNpcEntity.GetStatVal(ChaosEntityStatType.Health) >=
+                        testChaosNpcEntity.GetStatVal(ChaosEntityStatType.MaxHealth))
                     {
                         return false;
                     }
@@ -59,13 +59,13 @@ public class BasicBrainV1 : BrainBase
                 {
                   
 
-                    if (testNPCEntity.GetTeam().Equals(NpcEntity.GetTeam()))
+                    if (testChaosNpcEntity.GetTeam().Equals(ChaosNpcEntity.GetTeam()))
                     {
                         return false;
                     }
                     if (
-                        NpcEntity.primaryHeldItem is ChaosShieldItem && 
-                        testNPCEntity.IsStunned()
+                        ChaosNpcEntity.primaryHeldItem is ChaosShieldItem && 
+                        testChaosNpcEntity.IsStunned()
                     ){
                         return false;
                     }
@@ -77,17 +77,17 @@ public class BasicBrainV1 : BrainBase
             if (!closestEnemy)
             {
                 Vector3Int targetVec2 = GameManager.instance.level.GetRandomFloorTileVec();
-                NavigateToAction wonderAction2 = new NavigateToAction(NpcEntity);
+                NavigateToAction wonderAction2 = new NavigateToAction(ChaosNpcEntity);
                 wonderAction2.SetTargetVec(targetVec2);
-                NpcEntity.SetCurrentAction(wonderAction2);
+                ChaosNpcEntity.SetCurrentAction(wonderAction2);
                 return;
             }
-            UsePrimaryItemAction baseAction = new UsePrimaryItemAction(NpcEntity);
+            UsePrimaryItemAction baseAction = new UsePrimaryItemAction(ChaosNpcEntity);
             baseAction.SetTarget(closestEnemy);
-            NpcEntity.SetCurrentAction(baseAction);
+            ChaosNpcEntity.SetCurrentAction(baseAction);
             return;
         }
-        ChaosItem nearestAvailableItem = (ChaosItem)GameManager.instance.level.FindClosestEntity(NpcEntity.transform.position, (ChaosEntity chaosEntity) =>
+        ChaosItem nearestAvailableItem = (ChaosItem)GameManager.instance.level.FindClosestEntity(ChaosNpcEntity.transform.position, (ChaosEntity chaosEntity) =>
         {
             ChaosItem testItem = chaosEntity.GetComponent<ChaosItem>();
             if (!testItem)
@@ -103,16 +103,16 @@ public class BasicBrainV1 : BrainBase
         });
         if (nearestAvailableItem)
         {
-            NavigateToAction navToItemAction = new NavigateToAction(NpcEntity);
+            NavigateToAction navToItemAction = new NavigateToAction(ChaosNpcEntity);
             navToItemAction.SetTarget(nearestAvailableItem);
-            NpcEntity.SetCurrentAction(navToItemAction);
+            ChaosNpcEntity.SetCurrentAction(navToItemAction);
             return;
         }
         
         Vector3Int targetVec = GameManager.instance.level.GetRandomFloorTileVec();
-        NavigateToAction wonderAction = new NavigateToAction(NpcEntity);
+        NavigateToAction wonderAction = new NavigateToAction(ChaosNpcEntity);
         wonderAction.SetTargetVec(targetVec);
-        NpcEntity.SetCurrentAction(wonderAction);
+        ChaosNpcEntity.SetCurrentAction(wonderAction);
         
     }
 }

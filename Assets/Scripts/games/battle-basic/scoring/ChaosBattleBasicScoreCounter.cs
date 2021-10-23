@@ -5,12 +5,12 @@ public class ChaosBattleBasicScoreCounter: ChaosScoreCounterBase
     {
     }
 
-    public override int GetEntityScore(NPCEntity npcEntity)
+    public override int GetEntityScore(ChaosNPCEntity chaosNpcEntity)
     {
         int score = 0;
-        npcEntity.GetInteractions().ForEach(chaosInteraction =>
+        chaosNpcEntity.GetInteractions().ForEach(chaosInteraction =>
         {
-            bool isSender = (!chaosInteraction.Sender.Equals(npcEntity));
+            bool isSender = (!chaosInteraction.Sender.Equals(chaosNpcEntity));
             bool wasTeamMate = chaosInteraction.Sender.GetTeam().Equals(chaosInteraction.Reciver.GetTeam());
             
       
