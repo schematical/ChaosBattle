@@ -22,6 +22,7 @@ public abstract class BaseAction
         ActingChaosNpcEntity = chaosNpcEntity;
     }
 
+  
     public virtual void tick()
     {
         activeTime += Time.deltaTime;
@@ -37,6 +38,10 @@ public abstract class BaseAction
             _phase.Equals(ActionPhase.Finished) ||
             _phase.Equals(ActionPhase.Timedout)
         );
+    } 
+    public virtual Boolean isValid()
+    {
+        return true;
     }
     protected virtual void TransitionPhase(ActionPhase actionPhase)
     {

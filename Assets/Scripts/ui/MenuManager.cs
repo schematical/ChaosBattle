@@ -25,7 +25,7 @@ public class MenuManager : MonoBehaviour
     public void HideOverlays()
     {
            chaosEntityDetailPanel.gameObject.SetActive(false);
-
+           debugPanel.gameObject.SetActive(false);
     }
 
     public bool IsBigMenuOpen()
@@ -49,6 +49,6 @@ public class MenuManager : MonoBehaviour
 
     public void HideAllMenues()
     {
-        throw new System.NotImplementedException();
+     
     }
 }

@@ -20,12 +20,21 @@ public class UsePrimaryItemAction : NavigateToAction
 
     public UsePrimaryItemAction(ChaosNPCEntity chaosNpcEntity) : base(chaosNpcEntity)
     {
-        windupRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
-        cooldownRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Cooldown);
-        SetRangeGoal(ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range));
+        if (ActingChaosNpcEntity.primaryHeldItem)
+        {
+            windupRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
+            cooldownRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Cooldown);
+            SetRangeGoal(ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range));
+        }
     }
-
-
+    
+    public virtual Boolean isValid()
+    {
+        return (
+            base.isValid() &&
+            ActingChaosNpcEntity.primaryHeldItem != null
+        );
+    }
     public override void tick()
     {
         base.tick();

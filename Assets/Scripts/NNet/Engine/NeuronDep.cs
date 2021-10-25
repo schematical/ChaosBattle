@@ -31,7 +31,7 @@ public class NeuronDep: CTBaseObject
         }else{
             _innovationNumber = BrainMaker.IncInnovationNumber();
         }
-        if (depNeuron.NpcnNet == null)
+        if (depNeuron.npc == null)
         {
             origenGen = 0;
             origenNNetId = null;

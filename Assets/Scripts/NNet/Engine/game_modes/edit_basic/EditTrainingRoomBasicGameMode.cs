@@ -12,10 +12,10 @@ public class EditTrainingRoomBasicGameMode : GameModeBase
 
     }
     public override void Setup(){
-        GameManager.instance.DestroyEverything();
+        GameManager.instance.level.CleanUp();
        
-        GameManager.instance.boardManager.SetupScene(trainingRoomData);
-        GameManager.instance.menuManager.ShowTrainingRoomEditUI();
+        GameManager.instance.level.InitLevel();
+        // GameManager.instance.menuManager.ShowTrainingRoomEditUI();
     }
     public override void Tick(){
       

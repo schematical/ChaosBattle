@@ -1,4 +1,5 @@
-﻿using services;
+﻿using System;
+using services;
 using UnityEngine;
 public class NavigateToActionPhase : ActionPhase
 {
@@ -21,7 +22,10 @@ public class NavigateToAction : BaseAction
     }
 
     public ChaosEntity Target => target;
-
+    public virtual Boolean isValid()
+    {
+        return target != null;
+    }
     public void SetTarget(ChaosEntity target)
     {
         this.target = target;

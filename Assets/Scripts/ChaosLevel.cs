@@ -150,15 +150,23 @@ public class ChaosLevel
 
     public ChaosNPCEntity SpawnNPC(int x, int y, ChaosTeam team)
     {
-        ChaosNPCEntity chaosNpcEntity = GameManager.instance.PrefabManager.Get("NPCEntity")
+        
+        // ((TrainBasicGameMode)GameManager.instance.gameMode).SpawnNPC(x, y, team);
+        
+        
+        /*
+        ChaosNPCEntity chaosNpcEntity = GameManager.instance.PrefabManager.Get("ChaosNPCEntity")
             .GetComponent<ChaosNPCEntity>();
-                     
-        chaosNpcEntity.transform.localPosition = new Vector3(x, y, 0);
-        chaosNpcEntity.Init();
-        chaosNpcEntity.SetTeam(team);
+                     */
+
+        NPCNNetController npcnNetController = ((TrainBasicGameMode)GameManager.instance.gameMode).speciesManager.SpawnBot();
+        //chaosNpcEntity.AttachBotController(npcnNetController);
+        npcnNetController.entity.transform.localPosition = new Vector3(x, y, 0);
+        npcnNetController.entity.Init();
+        npcnNetController.entity.SetTeam(team);
         //boatObject.SetBoatData(boatData);
-        entities.Add(chaosNpcEntity);
-        return chaosNpcEntity;
+        entities.Add(npcnNetController.entity);
+        return npcnNetController.entity;
     }
 
     public void Tick()
@@ -245,7 +253,7 @@ public class ChaosLevel
         })); 
         return closestEntity;
     }
-      public NPCControllerBase InitNewBot(NPCNNetController parentBotController){
+    public NPCControllerBase InitNewBot(NPCNNetController parentBotController){
         return InitNewBot(parentBotController, true);
     }
 

@@ -4,10 +4,7 @@ using UnityEngine.Tilemaps;
 
 public class BasicNpcControllerV1 : NPCControllerBase
 {
-    public BasicNpcControllerV1(ChaosNPCEntity chaosNpcEntity) : base(chaosNpcEntity)
-    {
-    }
-
+  
     public override void tick()
     {
         BaseAction currAction = ChaosNpcEntity.GetCurrentAction();
@@ -33,7 +30,7 @@ public class BasicNpcControllerV1 : NPCControllerBase
                 {
                     return false;
                 }
-                if (!testChaosNpcEntity.isAlive)
+                if (!testChaosNpcEntity.IsAlive())
                 {
                     return false;
                 }

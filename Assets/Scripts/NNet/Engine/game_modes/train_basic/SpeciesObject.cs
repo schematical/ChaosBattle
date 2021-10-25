@@ -95,13 +95,13 @@ public class SpeciesObject: CTBaseObject
         {
             if (FirstNpcnNetController == null)
             {
-                FirstNpcnNetController = speciesManager.gameMode.SpawnBot(null);
+                FirstNpcnNetController = speciesManager.gameMode.SpawnNPC(null);
                 FirstNpcnNetController.keepAround = true;
                 FirstNpcnNetController.SetSpecies(this);
                 FirstNpcnNetController.nNet.generation = -1;
                 childNpcnNetController = FirstNpcnNetController;
             }else{
-                childNpcnNetController = speciesManager.gameMode.SpawnBot(FirstNpcnNetController);
+                childNpcnNetController = speciesManager.gameMode.SpawnNPC(FirstNpcnNetController);
             }
 
 
@@ -136,7 +136,7 @@ public class SpeciesObject: CTBaseObject
                 throw new System.Exception("SpeciesAge - BotController Generation mix up 1: " + randomNpcnNetController.nNet.generation + " != " + (this.speciesAge - 1));
             }
             
-            childNpcnNetController = speciesManager.gameMode.SpawnBot(randomNpcnNetController);
+            childNpcnNetController = speciesManager.gameMode.SpawnNPC(randomNpcnNetController);
             if(randomNpcnNetController.nNet.generation == -1){
                 childNpcnNetController.nNet.generation = speciesAge;
             }

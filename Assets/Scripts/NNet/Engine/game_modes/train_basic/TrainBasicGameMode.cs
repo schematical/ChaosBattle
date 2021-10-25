@@ -85,11 +85,11 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
       
         //debugManager.ClearDebugLines();
       
-        TickFitness();
+        // TickFitness();
 
 
         GameManager.instance.level.Tick();
-        WorldEvent.CleanTick();
+       //  WorldEvent.CleanTick();
 
         if (currentGenerationPerformance != null)
         {
@@ -530,11 +530,11 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
         }*/
     }
 
-    public NPCNNetController SpawnBot(NPCNNetController parentNpcnNetController)
+    public NPCNNetController SpawnNPC(NPCNNetController parentNpcnNetController)
     {
-        return SpawnBot(parentNpcnNetController, true);
+        return SpawnNPC(parentNpcnNetController, true);
     }
-    public NPCNNetController SpawnBot(NPCNNetController parentNpcnNetController, bool spawnAsParent)
+    public NPCNNetController SpawnNPC(NPCNNetController parentNpcnNetController, bool spawnAsParent)
     {
         NPCNNetController npcnNetController = null;
 
@@ -601,7 +601,7 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
                 entityObject != null &&
                 entityObject.gameObject != null &&
                 //entityObject.isAlive() && 
-                entityObject.GetType().Name == "Player"
+                entityObject.GetType().Name == "ChaosNPCEntity"
             )
             {
                 

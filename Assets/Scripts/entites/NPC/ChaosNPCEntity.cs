@@ -50,7 +50,8 @@ public class ChaosNPCEntity : ChaosEntity, iNavagatable
         SetStatVal(ChaosEntityStatType.Health, GetStatVal(ChaosEntityStatType.MaxHealth));
         SetStatVal(ChaosEntityStatType.StunDuration, 0);
         _isAlive = true;
-        _npcController = new BasicNpcControllerV1(this);
+        /*_npcController = new BasicNpcControllerV1();
+        _npcController.Attach(this);*/
         NPCEntityHead = GameManager.instance.PrefabManager.Get("NPCEntityHead").GetComponent<NPCEntityHead>();
         NPCEntityHead.transform.localPosition = new Vector3(
             transform.localPosition.x,
@@ -77,7 +78,7 @@ public class ChaosNPCEntity : ChaosEntity, iNavagatable
         c = bodySpriteRenderer.color;
         c.a = 1;
         bodySpriteRenderer.color = c;
-        GetComponent<PolygonCollider2D>().isTrigger = false;
+        GetComponent<BoxCollider2D>().isTrigger = false;
         // NPCEntityHead.GetComponent<BoxCollider2D>().isTrigger = false;
         if (_animatior)
         {
@@ -199,7 +200,7 @@ public class ChaosNPCEntity : ChaosEntity, iNavagatable
         c = bodySpriteRenderer.color;
         c.a = .25f;
         bodySpriteRenderer.color = c;
-        GetComponent<PolygonCollider2D>().isTrigger = true;
+        GetComponent<BoxCollider2D>().isTrigger = true;
         // NPCEntityHead.GetComponent<BoxCollider2D>().isTrigger = true;
         
         SetPrimaryHeldItem(null);

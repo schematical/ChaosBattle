@@ -91,12 +91,12 @@ namespace services
         private bool CheckForCollision(Path p, Vector2 end) {
             
             Vector2 startPos = new Vector2(p.x + OFFSET, p.y + OFFSET);
-            searcher.GetComponent<PolygonCollider2D>().enabled = false;
+            searcher.GetComponent<BoxCollider2D>().enabled = false;
             if (!target)
             {
                 return false;
             }
-            PolygonCollider2D targetCollider = target.GetComponent<PolygonCollider2D>();
+            BoxCollider2D targetCollider = target.GetComponent<BoxCollider2D>();
             if (targetCollider != null)
             {
                 targetCollider.enabled = false;
@@ -108,7 +108,7 @@ namespace services
             RaycastHit2D hit = Physics2D.CircleCast(startPos,  radius, direction, direction.sqrMagnitude);//, GameManager.instance.PrefabManager.defaultParent.gameObject.layer);
 
             
-            searcher.GetComponent<PolygonCollider2D>().enabled = true;
+            searcher.GetComponent<BoxCollider2D>().enabled = true;
             if (targetCollider != null)
             {
                 targetCollider.enabled = true;

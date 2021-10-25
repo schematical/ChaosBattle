@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
@@ -22,51 +23,58 @@ public class CTBrainMaker : BrainMaker
         base.Init(_brainMakerConfigData, _gameMode);
 
         //STATIC_brainMakerConfigData = new BrainMakerConfigData();
-        outputNeuronTypes.Add("MoveOutput");
-        outputNeuronTypes.Add("TurnOutput");
+        outputNeuronTypes.Add("ScoreTargetOutput");
+        /*outputNeuronTypes.Add("TurnOutput");
         outputNeuronTypes.Add("StopOutput");
-        outputNeuronTypes.Add("RememberOutput");
+        outputNeuronTypes.Add("RememberOutput");*/
 
         //inputNeuronTypes.Add("DebugInput");
-        inputNeuronTypes.Add("CanSeeEntityInput");
-        inputNeuronTypes.Add("CanSeeTileInput");
+        inputNeuronTypes.Add("EntityStatInput");
+/*        inputNeuronTypes.Add("CanSeeTileInput");
         inputNeuronTypes.Add("CanRememberInput");
         inputNeuronTypes.Add("OnEnterTileInput");
-        inputNeuronTypes.Add("IsFacingAngleInput");
+        inputNeuronTypes.Add("IsFacingAngleInput");*/
     }
 
     public override void SetupNewSpeciesBasicInputOutputs(NNet nNet){
 
-
+        
         // BotBiologyData botBiologyData = GameManager.instance.trainingRoomData.botBiologyData;
-        //TODO:Figure out how to beter populate better bot biology
+        //TODO:Figure out how to better populate better bot biology
 
 
 
   
-        //1 Move
-        OutputNeuron outputNeuron = new MoveOutput("output_" + nNet.generation + "_" + nNet.neurons.Count);
-        nNet.neurons.Add(outputNeuron.id, outputNeuron);
-        nNet.outputNeurons.Add(outputNeuron.id, outputNeuron);
-        outputNeuron.AttachNNet(nNet);
+        ScoreTargetOutput scoreTargetOutputNavigateTo = new ScoreTargetOutput("output_" + nNet.generation + "_" + nNet.neurons.Count);
+        scoreTargetOutputNavigateTo.ActionType = typeof(NavigateToAction);
+        nNet.neurons.Add(scoreTargetOutputNavigateTo.id, scoreTargetOutputNavigateTo);
+        nNet.outputNeurons.Add(scoreTargetOutputNavigateTo.id, scoreTargetOutputNavigateTo);
+        scoreTargetOutputNavigateTo.AttachNNet(nNet);
+        
+        ScoreTargetOutput scoreTargetOutputUsePrimaryItem = new ScoreTargetOutput("output_" + nNet.generation + "_" + nNet.neurons.Count);
+        scoreTargetOutputUsePrimaryItem.ActionType = typeof(UsePrimaryItemAction);
+        nNet.neurons.Add(scoreTargetOutputUsePrimaryItem.id, scoreTargetOutputUsePrimaryItem);
+        nNet.outputNeurons.Add(scoreTargetOutputUsePrimaryItem.id, scoreTargetOutputUsePrimaryItem);
+        scoreTargetOutputUsePrimaryItem.AttachNNet(nNet);
+        
+        
+        
+        
+        BiasInput biasInput = new BiasInput("input_" + nNet.generation + "_" + nNet.neurons.Count);
+        nNet.neurons.Add(biasInput.id, biasInput);
+        nNet.inputNeurons.Add(biasInput.id, biasInput);
+        biasInput.AttachNNet(nNet);
+        
+        
+        foreach (ChaosEntityStatType statType in (ChaosEntityStatType[]) Enum.GetValues(typeof(ChaosEntityStatType)))
+        {
+            EntityStatInput entityStatInput = new EntityStatInput("input_" + nNet.generation + "_" + nNet.neurons.Count);
+            entityStatInput.StatType = statType;
+            nNet.neurons.Add(entityStatInput.id, entityStatInput);
+            nNet.inputNeurons.Add(entityStatInput.id, entityStatInput);
+            entityStatInput.AttachNNet(nNet);
+        }
 
-
-        //2 turns(left/right)
-        TurnOutput turnOutput = new TurnOutput("output_" + nNet.generation + "_" + nNet.neurons.Count);
-        //turnOutput.rot = 90;
-        nNet.neurons.Add(turnOutput.id, turnOutput);
-        nNet.outputNeurons.Add(turnOutput.id, turnOutput);
-        turnOutput.AttachNNet(nNet);
-
-  
- 
-        CanSeeInput canSeeInput = new CanSeeInput("input_" + nNet.generation + "_" + nNet.neurons.Count);
-        canSeeInput.attributeId = CTOA._IS_REAL_TYPE_ + "X";
-
-
-        nNet.neurons.Add(canSeeInput.id, canSeeInput);
-        nNet.inputNeurons.Add(canSeeInput.id, canSeeInput);
-        canSeeInput.AttachNNet(nNet);
 
     }
 
@@ -74,30 +82,9 @@ public class CTBrainMaker : BrainMaker
     public override OutputNeuron InitializeOutputNeuron(string id, string outputNeuronType){
 
         switch(outputNeuronType){
-            case("MoveOutput"):
-                MoveOutput output = new  MoveOutput(id);
-
+            case("ScoreTargetOutput"):
+                ScoreTargetOutput output = new  ScoreTargetOutput(id);
                 return output;
-            case ("JumpOutput"):
-                JumpOutput jumpOutput = new JumpOutput(id);
-
-                return jumpOutput;
-            
-            case("TurnOutput"):
-                TurnOutput turnOutput = new TurnOutput(id);
-
-                return turnOutput;
-            case ("StopOutput"):
-                StopOutput stopOutput = new StopOutput(id);
-
-                return stopOutput;
-
-            case ("RememberOutput"):
-                RememberOutput rememberOutput = new RememberOutput(id);
-                return rememberOutput;
-            case ("EmitNoiseOutput"):
-                EmitNoiseOutput emitNoiseOutput = new EmitNoiseOutput(id);
-                return emitNoiseOutput;
             default:
                 throw new System.Exception("Invalid OutputNeuron: " + outputNeuronType);
         }
@@ -107,12 +94,17 @@ public class CTBrainMaker : BrainMaker
 
         switch (inputNeuronType)
         {
+            case ("EntityStatInput"):
+                EntityStatInput entityStatInput = new EntityStatInput(id);
+                return entityStatInput;
             case ("DebugInput"):
                 DebugInput debugInput = new DebugInput(id);
               
                 return debugInput;
-
-            case ("CanRememberInput"):
+            case ("BiasInput"):
+                BiasInput biasInput = new BiasInput(id);
+                return biasInput;
+            /*case ("CanRememberInput"):
                 CanRememberInput canRememberInput =new CanRememberInput(id);
                 return canRememberInput;
 
@@ -141,19 +133,16 @@ public class CTBrainMaker : BrainMaker
                 HealthChangeInput healthChangeInput = new HealthChangeInput(id);
                 return healthChangeInput;
 
-            case ("BiasInput"):
-                BiasInput biasInput = new BiasInput(id);
-                return biasInput;
+            
             case ("CanHearNoiseInput"):
                 CanHearNoiseInput canHearNoiseInput = new CanHearNoiseInput(id);
                 return canHearNoiseInput;
             case ("LifespanInput"):
                 LifespanInput lifespanInput = new LifespanInput(id);
-                return lifespanInput;
+                return lifespanInput;*/
             default:
                 throw new System.Exception("Invalid InputNeuron: " + inputNeuronType);
         }
-
 	}
     /*public List<string> GetEntityListFromCurrTrainingRoom()
     {

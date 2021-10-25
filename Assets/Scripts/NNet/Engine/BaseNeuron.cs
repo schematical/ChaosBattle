@@ -49,7 +49,7 @@ public abstract class BaseNeuron : CTBaseObject, ICTSerializable
     {
         get { return _innovationNumber; }
     }
-    public NPCNNetController NpcnNet
+    public NPCNNetController npc
     {
         get { return nNet.NPCController; }
         //set { bar = value; }

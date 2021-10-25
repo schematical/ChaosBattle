@@ -47,7 +47,7 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
         //TODO: Make sure this updates correctly
         fitnessManagerConfigData = trainingRoomData.fitnessManagerConfigData;
 
-        GameManager.instance.botManager.brainMaker = new CTBrainMaker();
+        GameManager.instance.level.brainMaker = new CTBrainMaker();
         //GameManager.instance.botManager.brainMaker.Init(trainingRoomData.brainMakerConfigData, this);
         GameManager.instance.level.CleanUp();
 
@@ -79,7 +79,7 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
         TickFitness();
 
 
-        GameManager.instance.botManager.Tick();
+        GameManager.instance.level.Tick();
         WorldEvent.CleanTick();
     }
     public override void Suspend(){
@@ -93,28 +93,26 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
    
         int aliveBotCount = 0;
         //bool hasLastGenBot = false;
-        foreach (NPCNNetController botController in GameManager.instance.botManager.bots.Values)
+        foreach (NPCNNetController botController in GameManager.instance.level.bots.Values)
         {
             bool hasAttachedEntity = botController.HasAttachedEntity();
          
             if(
                 hasAttachedEntity && 
-                botController.entity.isAlive()
+                botController.entity.IsAlive()
             )
             {
                 aliveBotCount += 1;
                 if (botController.realGameAge > botController.maxLifeExpectancy)
                 {
                     botController.entity.SleepMe();
-                    //Debug.Log("BotController: " + botController.id + " - Death by timeout");
+                  
                 }
                
             }
-            /*if(hasAttachedEntity != isAlive){
-                Debug.LogError("Confict..." + botController.id);
-            }*/
+       
         }
-        GameManager.instance.botManager.CleanUpBotList();
+        // GameManager.instance.level.CleanUpBotList();
 
 
 
@@ -135,7 +133,7 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
                     if (
                         (
                             !botsInPlay[botIndex].HasAttachedEntity() ||
-                            !botsInPlay[botIndex].entity.isAlive()
+                            !botsInPlay[botIndex].entity.IsAlive()
                         ) &&
                         botsInPlay[botIndex].spawnCount < botsInPlay[botIndex].maxSpawnCount
                     
@@ -158,23 +156,23 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
             }
         }
         if(!hasMoreBotsToRun){
-            GameManager.instance.menuManager.challengeModeStatsPanel.Show();
+            // GameManager.instance.menuManager.challengeModeStatsPanel.Show();
             GameManager.instance.Pause();
         }
           
     }
    
-    public override void OnInitNPC(NPCNNetController npcnNetController)
+    public  void OnInitNPC(NPCNNetController npcnNetController)
     {
         //Set its fitness controller
         npcnNetController.keepAround = true;
-        npcnNetController.memory = new BotMemory();
+        // npcnNetController.memory = new BotMemory();
         npcnNetController.maxSpawnCount = maxIndividualBotSpawnCount;
         npcnNetController.ResetAge();
         npcnNetController.maxLifeExpectancy = trainingRoomData.fitnessManagerConfigData.initialMaxLifeExpectancy;
         npcnNetController.botFitnessController = fitnessManagerConfigData.GetNewBotFitnessController(npcnNetController);
     }
-    public override void OnDestroyBot(NPCNNetController npcnNetController)
+    public void OnDestroyBot(NPCNNetController npcnNetController)
     {
         
         if(npcnNetController.spawnCount < npcnNetController.maxSpawnCount){
@@ -204,11 +202,11 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
 
         if (parentNpcnNetController != null)
         {
-            npcnNetController = GameManager.instance.botManager.InitNewBot(parentNpcnNetController, spawnAsParent);
+            npcnNetController = (NPCNNetController)GameManager.instance.level.InitNewBot(parentNpcnNetController, spawnAsParent);
         }
         else
         {
-            foreach (NPCNNetController _botController in GameManager.instance.botManager.bots.Values)
+            foreach (NPCNNetController _botController in GameManager.instance.level.bots.Values)
             {
                 if (!_botController.HasAttachedEntity())
                 {
@@ -217,7 +215,7 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
             }
             if (npcnNetController == null)
             {
-                npcnNetController = GameManager.instance.botManager.InitNewBot(null);
+                npcnNetController = (NPCNNetController)GameManager.instance.level.InitNewBot(null);
             }
         }
 
@@ -231,6 +229,7 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
             //TODO: Detatch
         }
 
+        /*
         int index = 0;
         float newAngle = 90;
         if (fitnessManagerConfigData.randomizeSpawnPosition)
@@ -240,18 +239,20 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
 
         }
         SpawnTile spawnTile = GameManager.instance.boardManager.spawnTiles[index];
+*/
 
 
-        GameObject botEntity = GameManager.instance.boardManager.AddEntity("Bot", spawnTile.gameObject.transform.position, Quaternion.Euler(0, 0, newAngle));
+        GameObject botEntity = GameManager.instance.PrefabManager.Get("Bot");
+        // , spawnTile.gameObject.transform.position, Quaternion.Euler(0, 0, newAngle)
         botEntity.name = npcnNetController.id;
 
-        Player entity = (Player)botEntity.GetComponent<EntityObject>();
+        ChaosNPCEntity entity = (ChaosNPCEntity)botEntity.GetComponent<ChaosNPCEntity>();
         //Debug.Log("Attaching Entity: " + botEntity.name);
         entity.id = botEntity.name;
         npcnNetController.Attach(entity);
 
         BoxCollider2D _collider = entity.GetComponent<BoxCollider2D>();
-        foreach (EntityObject entityObject in GameManager.instance.boardManager.entities.Values)
+        foreach (ChaosNPCEntity entityObject in GameManager.instance.level.entities)
         {
             if (
                 entityObject != null &&
@@ -267,7 +268,7 @@ public class ChallengeBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, 
             }
         }
         if(npcnNetController.spawnCount == 0){
-            GameManager.instance.menuManager.botListPanel.botListScrollView.AddGameObject(npcnNetController);
+            // GameManager.instance.menuManager.botListPanel.botListScrollView.AddGameObject(npcnNetController);
         }
        
         return npcnNetController;

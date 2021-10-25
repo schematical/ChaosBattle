@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
 
+public class ActionCandidate
+{
+    public Dictionary<Type, float> TypeScores = new Dictionary<Type, float>();
+    public ChaosEntity Entity { get; set; }
+}
 public class NPCNNetController : NPCControllerBase {
     public float totalNNetEvaluateMS = 0;
     public NNet nNet;
-
     public BotBiologyData botBiology;
     public int failedToMoveCount = 0;
     public SpeciesObject speciesObject;
@@ -31,11 +35,86 @@ public class NPCNNetController : NPCControllerBase {
     public decimal _realGameAge = 0;
     public float secondsSinceLastPing = 0;
     public BrainMaker.Action brainMakerAction;
+    public Dictionary<ChaosEntity, ActionCandidate> ActionCandidates = new Dictionary<ChaosEntity, ActionCandidate>();
+    public ActionCandidate CurrentActionCandidate;
 
- 
-    public override void tick()
+
+   
+
+    private void SelectAnAction()
     {
-        throw new NotImplementedException();
+        Stopwatch stopWatch = new Stopwatch();
+        stopWatch.Start();
+        ActionCandidates.Clear();
+        GameManager.instance.level.entities.ForEach((entity) =>
+        {
+            CurrentActionCandidate = new ActionCandidate();
+            ActionCandidates.Add(entity, CurrentActionCandidate);
+            CurrentActionCandidate.Entity = entity;
+            List<OutputNeuron> firingOutputs = nNet.EvaluateNeurons();
+            foreach(OutputNeuron outputNeuron in firingOutputs){
+                outputNeuron.Execute(
+                    outputNeuron.lastValue
+                );
+            }
+        });
+        float highestScore = -99999;
+        /*Type  highestScoringActionType = null;
+        ChaosEntity highestScoringEntity = null;*/
+        BaseAction highestScoringAction = null;
+        foreach (KeyValuePair<ChaosEntity,ActionCandidate> keyValuePair in ActionCandidates)
+        {
+            foreach (KeyValuePair<Type,float> valueTypeScore in keyValuePair.Value.TypeScores)
+            {
+                float score = valueTypeScore.Value;
+                if (score > highestScore)
+                {
+                    
+                    switch (valueTypeScore.Key.Name)
+                    {
+                        case("NavigateToAction"): 
+                            NavigateToAction navigateToAction = new NavigateToAction(entity);
+                            navigateToAction.SetTarget(keyValuePair.Key);
+                            if (navigateToAction.isValid())
+                            {
+                                highestScore = score;
+                                highestScoringAction = navigateToAction;
+                            }
+
+                          
+                            break;
+                        case("UsePrimaryItemAction"): 
+                            UsePrimaryItemAction usePrimaryItemAction = new UsePrimaryItemAction(entity);
+                            usePrimaryItemAction.SetTarget(keyValuePair.Key);
+                            if (usePrimaryItemAction.isValid())
+                            { 
+                                highestScore = score;
+                                highestScoringAction = usePrimaryItemAction;
+                            }
+                         
+                            break;
+                        default:
+                            throw new Exception("Not sure what to do with `ActionBase`: " + valueTypeScore.Key.Name);
+                    }
+                
+                }
+            }
+        }
+
+        if (highestScoringAction != null)
+        {
+            entity.SetCurrentAction(highestScoringAction);
+        }
+        else
+        {
+            // throw new Exception("Could not find a viable action");
+        }
+       
+
+        stopWatch.Stop();
+        // Get the elapsed time as a TimeSpan value.
+        TimeSpan ts = stopWatch.Elapsed;
+        totalNNetEvaluateMS += (float)ts.TotalMilliseconds;
     }
     /*public override string _class_name
     {
@@ -127,7 +206,7 @@ public class NPCNNetController : NPCControllerBase {
     public void MarkAsFit(){
         
     }*/
-    public void Tick()
+    public override void tick()
     {
 
 
@@ -163,9 +242,9 @@ public class NPCNNetController : NPCControllerBase {
         {
             //Debug.Log("Tick Attempt: " + spawnCount);
         }
-        if(!isSpawned){
+        /*if(!isSpawned){
             return;
-        }
+        }*/
         if(!entity.IsAlive()){
             entity.SleepMe();
             return;
@@ -173,45 +252,13 @@ public class NPCNNetController : NPCControllerBase {
         _ageTicks += 1;
 
 
-      
-        Stopwatch stopWatch = new Stopwatch();
-        stopWatch.Start();
-
-
-        List<OutputNeuron> firingOutputs = nNet.EvaluateNeurons();
-
-        stopWatch.Stop();
-        // Get the elapsed time as a TimeSpan value.
-        TimeSpan ts = stopWatch.Elapsed;
-        totalNNetEvaluateMS += (float)ts.TotalMilliseconds;
-        /*
-        if (ts.TotalMilliseconds > 10)
-        {
-            UnityEngine.Debug.Log("TS: " + ts.TotalMilliseconds.ToString());
-        }*/
-
-
-
-        foreach(OutputNeuron outputNeuron in firingOutputs){
-            outputNeuron.Execute(
-                outputNeuron.lastValue
-            );
+        BaseAction currAction = ChaosNpcEntity.GetCurrentAction();
+        if (
+            currAction == null || 
+            currAction.isFinished()
+        ){
+            SelectAnAction();
         }
-
-        for (int i = 0; i < tickEvents.Count; i++)
-        {
-            tickEvents[i].keepAlive = false;
-            //UnityEngine.Object.Destroy(tickEvents[i]);
-            tickEvents[i] = null;
-        }
-
-        tickEvents.Clear();
-
-        ticksSinceLastDebug += 1;
-        /*if(ticksSinceLastDebug > GameManager.instance.diagnosticManager.debugLogPositionTickInterval){
-            DebugLogPosition();
-            ticksSinceLastDebug = 0;
-        }*/
 
 
 

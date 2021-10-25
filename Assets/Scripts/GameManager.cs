@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
         instance = this;
         ChaosSeed = new ChaosSeed(DateTime.Now.ToString());//"x");
         PrefabManager.Init();
+        inputManager = new InputManager();
+        GameManager.instance.SetGameMode(new TrainBasicGameMode());
+        GameManager.instance.Resume();
+        
         level.InitLevel();
     }
 
@@ -52,7 +56,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        level.Tick();
+        // level.Tick();
     }
     public GameModeBase gameMode{
         get{
@@ -123,11 +127,25 @@ public class GameManager : MonoBehaviour
 
     }
     public void SetGameMode(GameModeBase gameMode){
-        if(gameMode != null){
-            gameMode.Shutdown();
+        if(_gameMode != null){
+            _gameMode.Shutdown();
         }
-        gameMode = gameMode;
-        gameMode.Setup();
+        _gameMode = gameMode;
+        _gameMode.Setup();
     }
-
+    void FixedUpdate()
+    {
+        if(paused){
+            return;
+        }
+        
+        if (gameMode != null)
+        {
+            gameMode.Tick();
+        }
+                   
+          
+       
+        
+    }
 }

@@ -14,7 +14,10 @@ public abstract class CTBaseMonoBehavior : MonoBehaviour
         //disposed = false;
         // handle = new SafeFileHandle(System.IntPtr.Zero, true);
         //System.Threading.Interlocked.Increment(ref counter);
-        GameManager.instance.garbageCollector.RegisterNewObject(_class_name);
+        if (GameManager.instance)
+        {
+            GameManager.instance.garbageCollector.RegisterNewObject(_class_name);
+        }
     }
 
     //~CTBaseObject()

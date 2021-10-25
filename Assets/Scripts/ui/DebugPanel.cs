@@ -20,8 +20,8 @@ public class DebugPanel : MonoBehaviour {
     void Start()
     {
         closeButton.onClick.AddListener(CloseButtonClickEvent);
-        clearButton.onClick.AddListener(ClearButtonClickEvent);
-        memoryButton.onClick.AddListener(MemoryButtonClickEvent);
+        // clearButton.onClick.AddListener(ClearButtonClickEvent);
+        // memoryButton.onClick.AddListener(MemoryButtonClickEvent);
     }
     public void Show(){
        
