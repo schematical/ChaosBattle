@@ -102,74 +102,23 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
     public override void Shutdown(){
         speciesManager.species.Clear();
     }
-    public void TickFitness(){
-
-        //switch (respawnMode){
-            /*
-            case(RespawnMode.ALL):
-                TestAll();
-            break;
-            */
-            //case (RespawnMode.INDIVIDUAL):
-                TickTestIndividual();
-               // break;
-
-        //}
-    }
-    public void TickTestIndividual(){
-        //Iterate through each bot
-        if (speciesManager.realMaxSpawnCount == 0)
+    public void EndMatch()
+    {
+        foreach (NPCControllerBase npcControllerBase in GameManager.instance.level.bots.Values)
         {
-            speciesManager.realMaxSpawnCount = trainingRoomData.fitnessManagerConfigData.minSpeciesSpawnAllowence * trainingRoomData.fitnessManagerConfigData.minSpeciesCount;
+            NPCNNetController npcnNetController = (NPCNNetController) npcControllerBase;
+            npcnNetController.botControllerScoreData.scores.Add(
+                GameManager.instance.level.ScoreCounter.GetEntityScore(npcnNetController.ChaosNpcEntity)
+            );
         }
-        int aliveBotCount = 0;
-        //bool hasLastGenBot = false;
-        foreach (NPCControllerBase botController in GameManager.instance.level.bots.Values)
-        {
-            bool hasAttachedEntity = botController.HasAttachedEntity();
-         
-            if(
-                hasAttachedEntity
-
-            )
-            {
-                /*if (botController.ChaosNpcEntity.IsAlive())
-                {
-                    aliveBotCount += 1;
-                    if (botController.realGameAge > botController.maxLifeExpectancy)
-                    {
-                        botController.entity.SleepMe();
-                    }
-                }else{
-                    if (botController.realGameAge > botController.maxLifeExpectancy)
-                    {
-                        botController.entity.SleepMe();
-
-                    }
-                }*/
-               
-            }
-           
-        }
-        // GameManager.instance.level.CleanUpBotList();
-
-    
+        Debug.Log("spawnCountThisGeneration: " + spawnCountThisGeneration + " - speciesManager.realMaxSpawnCount: " + speciesManager.realMaxSpawnCount);
         if (spawnCountThisGeneration > speciesManager.realMaxSpawnCount)
         {
-            if (aliveBotCount > 0)
-            {
-                return;
-            }
+          Debug.Log("Iterate Generation");
             //Iterate generations
             IterateGenerations();
             return;
         }
-
-        if (aliveBotCount < maxBotCount)
-        {
-            SpawnNextBots();
-        }
-          
     }
 
     public void IterateGenerations()
@@ -500,7 +449,7 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
         }
 
 
-        bool madeItInTop = npcnNetController.speciesObject.fitnessSortingBlock.TestBotStat(npcnNetController, npcnNetController.botFitnessController.cumulativeScore);
+        bool madeItInTop = npcnNetController.speciesObject.fitnessSortingBlock.TestBotStat(npcnNetController, GameManager.instance.level.ScoreCounter.GetEntityScore(npcnNetController.ChaosNpcEntity));
         if (!madeItInTop)
         {
             npcnNetController.MarkReadyForCleanup();

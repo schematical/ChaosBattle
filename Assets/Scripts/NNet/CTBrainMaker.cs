@@ -68,11 +68,18 @@ public class CTBrainMaker : BrainMaker
         
         foreach (ChaosEntityStatType statType in (ChaosEntityStatType[]) Enum.GetValues(typeof(ChaosEntityStatType)))
         {
-            EntityStatInput entityStatInput = new EntityStatInput("input_" + nNet.generation + "_" + nNet.neurons.Count);
-            entityStatInput.StatType = statType;
-            nNet.neurons.Add(entityStatInput.id, entityStatInput);
-            nNet.inputNeurons.Add(entityStatInput.id, entityStatInput);
-            entityStatInput.AttachNNet(nNet);
+            foreach (TargetEntityType targetEntityType in (ChaosEntityStatType[]) Enum.GetValues(typeof(TargetEntityType))
+            )
+            {
+                EntityStatInput entityStatInput =
+                    new EntityStatInput("input_" + nNet.generation + "_" + nNet.neurons.Count);
+                entityStatInput.StatType = statType;
+                entityStatInput.targetEntityType = targetEntityType;
+                nNet.neurons.Add(entityStatInput.id, entityStatInput);
+                nNet.inputNeurons.Add(entityStatInput.id, entityStatInput);
+                entityStatInput.AttachNNet(nNet);
+            }
+
         }
 
 

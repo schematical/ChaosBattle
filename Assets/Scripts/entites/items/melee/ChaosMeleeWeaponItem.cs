@@ -54,6 +54,7 @@ public abstract class ChaosMeleeWeaponItem : ChaosItem
             ((ChaosNPCEntity) target).TakeDamage(
                 chaosInteraction
             );
+            GameManager.instance.level.ResetTimeRemaining();
             HeldByChaosNpcEntity.AddInteraction(chaosInteraction);
         }
     }

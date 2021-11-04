@@ -95,6 +95,13 @@ public class UsePrimaryItemAction : NavigateToAction
     public override string GetDebugString()
     {
         string className = GetType().Name;
-        return className + "(Phase: " + _phase.Name + "," + "Item: " + ActingChaosNpcEntity.primaryHeldItem.GetType().FullName + ")";
+        string response = className;
+        if (ActingChaosNpcEntity.primaryHeldItem)
+        {
+            response += "(Phase: " + _phase.Name + "," + "Item: " +
+                   ActingChaosNpcEntity.primaryHeldItem.GetType().FullName + ")";
+        }
+
+        return response;
     }
 }

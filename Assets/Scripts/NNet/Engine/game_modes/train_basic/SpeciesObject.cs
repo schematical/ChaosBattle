@@ -286,7 +286,7 @@ public class SpeciesObject: CTBaseObject
                 toRemove.Add(botController);
 
             }else {
-                float lastScore = botController.botControllerScoreData.scores[0];//TODO: Make this better
+                float lastScore = GameManager.instance.level.ScoreCounter.GetEntityScore(botController.ChaosNpcEntity);// botController.botControllerScoreData.scores[0];//TODO: Make this better
 
                 totalScore += lastScore;
                 botsInTop += 1;

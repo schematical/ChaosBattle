@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
         instance = this;
         ChaosSeed = new ChaosSeed(DateTime.Now.ToString());//"x");
         PrefabManager.Init();

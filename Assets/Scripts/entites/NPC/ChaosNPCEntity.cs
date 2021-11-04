@@ -79,6 +79,7 @@ public class ChaosNPCEntity : ChaosEntity, iNavagatable
         c.a = 1;
         bodySpriteRenderer.color = c;
         GetComponent<BoxCollider2D>().isTrigger = false;
+        _interactions.Clear();
         // NPCEntityHead.GetComponent<BoxCollider2D>().isTrigger = false;
         if (_animatior)
         {
@@ -306,6 +307,10 @@ public class ChaosNPCEntity : ChaosEntity, iNavagatable
     }
     public override string GetDebugString()
     {
+        if (currAction == null)
+        {
+            return "No Action";
+        }
         return "Action: " + currAction.GetDebugString();
     }
 

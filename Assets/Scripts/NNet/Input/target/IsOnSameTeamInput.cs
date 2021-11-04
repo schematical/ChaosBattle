@@ -1,53 +1,28 @@
 ﻿
 using System;
 
-public class EntityStatInput: InputNeuron
+public class IsOnSameTeamInput: InputNeuron
 {
     public const float ZERO_VALUE = -1f;
     public ChaosEntityStatType StatType;
-    public TargetEntityType targetEntityType;
-    public EntityStatInput(string id) : base(id)
+    public IsOnSameTeamInput(string id) : base(id)
     {
         
     }
     public override void Evaluate()
     {
         _lastValue = ZERO_VALUE;
-        ChaosEntity testEntity = null;
-        switch (targetEntityType)
-        {
-            case(TargetEntityType.Target):
-                testEntity = npc.CurrentActionCandidate.Entity;
-            break;
-            case(TargetEntityType.TargetHeldItem):
-                if (npc.CurrentActionCandidate.Entity is ChaosNPCEntity)
-                {
-                    ChaosNPCEntity chaosNpcEntity = (ChaosNPCEntity) npc.CurrentActionCandidate.Entity;
-                    testEntity = chaosNpcEntity.primaryHeldItem;
-                }
-                break;
-            case(TargetEntityType.Self):
-                testEntity = npc.entity;
-                break;
-            case(TargetEntityType.SelfHeldItem):
-                testEntity = npc.entity.primaryHeldItem;
-                break;
-            default: 
-                throw new Exception("Not sure what to do with `targetEntityType`: " + targetEntityType);
-        }
 
-        if (testEntity != null)
+        if (npc.CurrentActionCandidate.Entity is ChaosNPCEntity)
         {
-            try
+            ChaosNPCEntity chaosNpcEntity = (ChaosNPCEntity) npc.CurrentActionCandidate.Entity;
+            if (chaosNpcEntity.GetTeam().Equals(npc.entity.GetTeam()))
             {
-                float statVal = testEntity.GetStatVal(StatType);
-                _lastValue = statVal;
-            }
-            catch (Exception e)
-            {
-
+                _lastValue = 1;
             }
         }
+        
+
     }
    
    
@@ -57,8 +32,7 @@ public class EntityStatInput: InputNeuron
         //neuronData.Set("entityFilterData", JsonUtility.ToJson(entityFilterData));
         //neuronData.Set("tileFilterData", JsonUtility.ToJson(tileFilterData));
        
-        neuronData.Set("statType", StatType.ToString());
-        neuronData.Set("targetEntityType", targetEntityType.ToString());
+        // neuronData.Set("statType", StatType.ToString());
         return neuronData;
     }
     public override void ParseData(NNetData.NeuronData neuronData)
@@ -71,8 +45,7 @@ public class EntityStatInput: InputNeuron
         string _tileFilterData = neuronData.Get("tileFilterData");
         tileFilterData = JsonUtility.FromJson<TileFilterData>(_tileFilterData);
         */
-        ChaosEntityStatType.TryParse(neuronData.Get("statType"), out StatType);
-        TargetEntityType.TryParse(neuronData.Get("targetEntityType"), out targetEntityType);
+        // ChaosEntityStatType.TryParse(neuronData.Get("statType"), out StatType);
     }
     /*public override void PopulateRandom()
     {
@@ -99,7 +72,7 @@ public class EntityStatInput: InputNeuron
         data +=  " - Last:" + _lastValue;
         return data;
     }
-    ~EntityStatInput()
+    ~IsOnSameTeamInput()
 	//public override void OnDestroy()
 	{
         //base.OnDestroy();

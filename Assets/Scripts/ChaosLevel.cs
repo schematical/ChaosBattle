@@ -17,13 +17,18 @@ public class ChaosLevel
     public ChaosBattleBasicScoreCounter ScoreCounter;
     public CTBrainMaker brainMaker;
     public IDictionary<string, NPCControllerBase> bots = new Dictionary<string, NPCControllerBase>();
+    private float timeRemaining;
 
+    public void ResetTimeRemaining()
+    {
+        timeRemaining = 15;
+    }
     public void InitLevel()
     {
         ScoreCounter = new ChaosBattleBasicScoreCounter(this);
         teams.Add(new ChaosTeam("Team 1"));
         teams.Add(new ChaosTeam("Team 2"));
-
+        ResetTimeRemaining();
         for (int x = 0 - Border; x < MapDimensions.x + Border; x++)
         {
             for (int y = 0 - Border; y < MapDimensions.y + Border; y++)
@@ -177,7 +182,7 @@ public class ChaosLevel
         {
             teamCounts.Add(team, 0);    
         }));
-        
+        timeRemaining -= Time.deltaTime;
         GameManager.instance.level.entities.ForEach((entity =>
         {
             ChaosNPCEntity testChaosNpcEntity = entity.GetComponent<ChaosNPCEntity>();
@@ -204,8 +209,13 @@ public class ChaosLevel
                 
             }  
         }));
+        if (timeRemaining <= 0)
+        {
+            triggerReset = true;
+        }
         if (triggerReset)
         {
+            ((TrainBasicGameMode)GameManager.instance.gameMode).EndMatch();
             CleanUp();
             InitLevel();
         }
@@ -330,7 +340,7 @@ public class ChaosLevel
             {
                Debug.LogError("2 - BotGeneration Missmatch");
             } */
-            npcController.botBiology = parentBotController.botBiology.MutateRandom();
+            // npcController.botBiology = parentBotController.botBiology.MutateRandom();
 
             npcController.AttachNNet(brainMakerAction.resultNNet);
 
