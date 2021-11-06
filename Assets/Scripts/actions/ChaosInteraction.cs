@@ -23,5 +23,6 @@ public enum ChaosInteractionType
 {
     MeeleAttack,
     Heal,
-    Stun
+    Stun,
+    Purchase
 }

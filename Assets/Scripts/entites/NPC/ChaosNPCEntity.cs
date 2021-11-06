@@ -307,11 +307,28 @@ public class ChaosNPCEntity : ChaosEntity, iNavagatable
     }
     public override string GetDebugString()
     {
+        String strDebug = "";
         if (currAction == null)
         {
-            return "No Action";
+            strDebug +=  "No Action";
         }
-        return "Action: " + currAction.GetDebugString();
+        else
+        {
+            strDebug += "Action: " + currAction.GetDebugString();
+        }
+
+        if (_npcController is NPCNNetController)
+        {
+            strDebug += "\n";
+            NPCNNetController npcnNetController = (NPCNNetController) _npcController;
+            strDebug += "Species: " + npcnNetController.speciesObject.id + "  ";
+            strDebug += "Gen: " + npcnNetController.nNet.generation;
+
+        }
+
+        return strDebug;
+
+
     }
 
     public bool IsStunned()

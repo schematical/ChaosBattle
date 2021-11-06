@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-public class DebugPanel : MonoBehaviour {
+public class DebugPanel : ChaosBasePanel {
 
     public class DebugPanelMode{
         public const string LOG = "LOG";
@@ -12,7 +12,6 @@ public class DebugPanel : MonoBehaviour {
     public Text infoText;
 
     public string mode = DebugPanelMode.LOG;
-    public Button closeButton;
     public Button clearButton;
     public Button memoryButton;
 

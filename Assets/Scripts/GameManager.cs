@@ -47,10 +47,7 @@ public class GameManager : MonoBehaviour
         ChaosSeed = new ChaosSeed(DateTime.Now.ToString());//"x");
         PrefabManager.Init();
         inputManager = new InputManager();
-        GameManager.instance.SetGameMode(new TrainBasicGameMode());
-        GameManager.instance.Resume();
-        
-        level.InitLevel();
+      
     }
 
     // Update is called once per frame

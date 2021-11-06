@@ -110,6 +110,7 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
             npcnNetController.botControllerScoreData.scores.Add(
                 GameManager.instance.level.ScoreCounter.GetEntityScore(npcnNetController.ChaosNpcEntity)
             );
+            GameManager.instance.gameMode.OnDestroyBot(npcnNetController);
         }
         Debug.Log("spawnCountThisGeneration: " + spawnCountThisGeneration + " - speciesManager.realMaxSpawnCount: " + speciesManager.realMaxSpawnCount);
         if (spawnCountThisGeneration > speciesManager.realMaxSpawnCount)
@@ -402,7 +403,7 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
     }
     public override void OnDestroyBot(NPCControllerBase controller)
     {
-        if ((controller is NPCNNetController))
+        if (!(controller is NPCNNetController))
         {
             return;
         }
@@ -424,7 +425,7 @@ public class TrainBasicGameMode : GameModeBase, IGameModeWithFitnessConfig, IGam
 
 
 
-        npcnNetController.speciesObject.LogScore(npcnNetController, npcnNetController.botFitnessController.cumulativeScore);
+        npcnNetController.speciesObject.LogScore(npcnNetController, GameManager.instance.level.ScoreCounter.GetEntityScore(npcnNetController.entity)); // npcnNetController.botFitnessController.cumulativeScore);
 
         if(currentGenerationPerformance != null){
             if(

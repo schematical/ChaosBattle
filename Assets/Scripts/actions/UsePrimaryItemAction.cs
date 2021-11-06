@@ -22,9 +22,24 @@ public class UsePrimaryItemAction : NavigateToAction
     {
         if (ActingChaosNpcEntity.primaryHeldItem)
         {
-            windupRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
-            cooldownRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Cooldown);
-            SetRangeGoal(ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range));
+            if (ActingChaosNpcEntity.primaryHeldItem.HasStatVal(ChaosEntityStatType.Windup))
+            {
+                windupRemainingDuration = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Windup);
+            
+            }
+            if (ActingChaosNpcEntity.primaryHeldItem.HasStatVal(ChaosEntityStatType.Cooldown))
+            {
+                cooldownRemainingDuration =
+                    ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Cooldown);
+            }
+
+            float range = 5;
+            if (ActingChaosNpcEntity.primaryHeldItem.HasStatVal(ChaosEntityStatType.Cooldown))
+            {
+                range = ActingChaosNpcEntity.primaryHeldItem.GetStatVal(ChaosEntityStatType.Range);
+            }
+
+            SetRangeGoal(range);
         }
     }
     

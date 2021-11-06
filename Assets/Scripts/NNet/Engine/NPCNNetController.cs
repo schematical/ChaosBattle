@@ -107,6 +107,10 @@ public class NPCNNetController : NPCControllerBase {
         }
         else
         {
+            Vector3Int targetVec = GameManager.instance.level.GetRandomFloorTileVec();
+            NavigateToAction wonderAction = new NavigateToAction(ChaosNpcEntity);
+            wonderAction.SetTargetVec(targetVec);
+            ChaosNpcEntity.SetCurrentAction(wonderAction);
             // throw new Exception("Could not find a viable action");
         }
        

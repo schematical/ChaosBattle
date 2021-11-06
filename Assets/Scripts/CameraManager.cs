@@ -87,7 +87,7 @@ public class CameraManager : MonoBehaviour {
 
             )
             {
-                if (camera.orthographicSize < 30)
+                if (camera.orthographicSize < 60)
                 {
                     camera.orthographicSize = GetComponent<Camera>().orthographicSize + 1;
                     cameraHasChanged = true;

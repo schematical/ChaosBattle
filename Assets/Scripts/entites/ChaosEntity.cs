@@ -16,7 +16,10 @@ public abstract class ChaosEntity : CTBaseObservableGameObject, IPointerClickHan
         stats.Add(type, stat);
         return stat;
     }
-
+    public Boolean HasStatVal(ChaosEntityStatType type)
+    {
+        return (stats.ContainsKey(type));
+    }
     public float GetStatVal(ChaosEntityStatType type)
     {
         if (!stats.ContainsKey(type))

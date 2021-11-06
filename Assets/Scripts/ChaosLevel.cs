@@ -10,8 +10,8 @@ using Random = UnityEngine.Random;
 
 public class ChaosLevel
 {
-    public static readonly int Border = 8;
-    public static readonly Vector2 MapDimensions = new Vector2(18, 12);
+    public static readonly int Border = 16;
+    public static readonly Vector2 MapDimensions = new Vector2(32, 32);
     public List<ChaosTeam> teams = new List<ChaosTeam>();
     public List<ChaosEntity> entities = new List<ChaosEntity>();
     public ChaosBattleBasicScoreCounter ScoreCounter;
@@ -114,7 +114,7 @@ public class ChaosLevel
                     ChaosSeed chaosSeed = GameManager.instance.ChaosSeed.Spawn("_" + x + "," + y);
                     if (y == MapDimensions.y / 2)
                     {
-                        int val = chaosSeed.Next(0, 7);
+                        int val = chaosSeed.Next(0, 10);
                         if (val == 1)
                         {
                             SwordMeeleWeaponItem swordObject = GameManager.instance.PrefabManager
@@ -140,6 +140,22 @@ public class ChaosLevel
                             chaosShieldItem.transform.localPosition = new Vector3(x, y, -2);
                             chaosShieldItem.Init();
                             entities.Add(chaosShieldItem);
+                        }else if (val == 4)
+                        {
+                            VendingMachineEntity vendingMachineEntity = GameManager.instance.PrefabManager.Get("VendingMachineEntity")
+                                .GetComponent<VendingMachineEntity>();
+
+                            vendingMachineEntity.transform.localPosition = new Vector3(x, y, -2);
+                            vendingMachineEntity.Init();
+                            entities.Add(vendingMachineEntity);
+                        }else if (val == 5)
+                        {
+                            MoneyItem moneyItem = GameManager.instance.PrefabManager.Get("MoneyItem")
+                                .GetComponent<MoneyItem>();
+
+                            moneyItem.transform.localPosition = new Vector3(x, y, -2);
+                            moneyItem.Init();
+                            entities.Add(moneyItem);
                         }
                     }
                 }

@@ -33,5 +33,6 @@ public enum ChaosEntityStatType
     Range,
     HealthRecovered,
     MaxHealth,
-    StunDuration
+    StunDuration,
+    MoneyValue
 }
